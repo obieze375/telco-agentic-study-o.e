@@ -4,13 +4,13 @@ configs:
   - config_name: "Track A"
     data_files:
       - split: test
-        path: data/Phase_1/test.json
+        path: "Track A/data/Phase_1/test.json"
       - split: train
-        path: data/Phase_1/train.json
+        path: "Track A/data/Phase_1/train.json"
   - config_name: "Track B"
     data_files:
       - split: test
-        path: data/Phase_1/test.json
+        path: "Track B/data/Phase_1/test.json"
 extra_gated_fields:
   First Name: text
   Last Name: text

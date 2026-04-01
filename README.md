@@ -1,13 +1,13 @@
 ---
 license: mit
 configs:
-  - config_name: Track\ A
+  - config_name: Track A
     data_files:
       - split: test
         path: data/Phase_1/test.json
       - split: train
         path: data/Phase_1/train.json
-  - config_name: Track\ B
+  - config_name: Track B
     data_files:
       - split: test
         path: data/Phase_1/test.json

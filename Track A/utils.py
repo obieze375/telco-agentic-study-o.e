@@ -103,19 +103,19 @@ def print_model_response(response, logger: logging.Logger, minimize=False):
     reset = "\033[0m"
     if minimize:
         logger.info(
-            f"{color}[Agent response] {response.content}{reset}\n"
+            f"{color}[Agent response] {getattr(response, 'content', None)}{reset}\n"
         )
     else:
-        if response.content:
+        if getattr(response, 'content', None):
             logger.info(
                 f"{color}[Agent response] {response.content}{reset}\n"
             )
-        if response.reasoning_content:
+        if getattr(response, 'reasoning_content', None):
             logger.info(
                 f"[Agent reasoning] {response.reasoning_content}\n"
             )
 
-        if response.tool_calls:
+        if getattr(response, 'tool_calls', None):
             for tool_call in response.tool_calls:
                 function_name = tool_call.function.name
                 try:

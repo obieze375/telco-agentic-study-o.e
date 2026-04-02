@@ -146,6 +146,7 @@ def extract_answer_all(response: str):
         matches = re.findall(r'\\boxed\{((?:[^{}]|\{[^{}]*\})*)\}', response)
         if matches:
             pred = matches[-1].strip()
+            pred = re.sub(r"[{}]", "", pred)
             return pred
         return ""
     except:

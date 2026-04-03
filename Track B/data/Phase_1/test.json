@@ -100,7 +100,7 @@
   {
     "scenario_id": "c78207f0-3ea9-492f-8262-e97f6d759341",
     "task": {
-      "question": "Big Data Zone Gamma-Node-04 addressing Management Zone Delta-Node-01's GE1/0/2, the subnet mask of this interface is 30, Delta-Axis-02 route is not reachable, this node is connected to Delta-Node-01, Delta-Node-02, Delta-Axis-01\nPlease find the path from Gamma-Node-04 to GE1/0/1 of Delta-Node-01. Use the -> symbol to connect node names, output in one line, with no extra whitespace characters in the middle, at the beginning, or at the end.",
+      "question": "Big Data Zone Gamma-Node-04 addressing Management Zone Delta-Node-01's GE1/0/2, the subnet mask of this interface is 30, Delta-Axis-02 route is not reachable, this node is connected to Delta-Node-01, Delta-Node-02, Delta-Axis-01\nPlease find the path from Gamma-Node-04 to GE1/0/2 of Delta-Node-01. Use the -> symbol to connect node names, output in one line, with no extra whitespace characters in the middle, at the beginning, or at the end.",
       "id": 15
     }
   },

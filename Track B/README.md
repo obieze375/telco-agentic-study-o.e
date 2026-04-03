@@ -592,7 +592,6 @@ display ip pool
 - **Placeholder values** in brackets (e.g., `[x]`, `[xxx]`) must be replaced with actual interface names, VRF/VPN instance names, or interface types/numbers appropriate for your network topology.
 - On **Cisco NX-OS switches**, certain features (e.g., NVE/VXLAN) require activation via `configure terminal` followed by the appropriate `feature` command before the related `show` commands become available.
 - The Agent Tool Server faithfully reproduces vendor-level syntax errors including **incomplete**, **unrecognized**, **ambiguous**, and **wrong parameter** errors (HTTP 422). Use this to validate your Agent's error handling.
-- 
 ---
 
 ## Participant Guide

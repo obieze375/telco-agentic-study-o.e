@@ -25,8 +25,6 @@ from utils import (
 )
 
 os.environ['AGENT_API_KEY'] = 'sk-XXXXXXXXXXXXX'
-os.environ['NO_PROXY'] = 'localhost,127.0.0.1'
-
 API_KEY = os.environ.get("AGENT_API_KEY", "dummy")
 
 
@@ -80,8 +78,10 @@ class Environment:
 
     def _headers(self, scenario_id: Optional[str] = None) -> Dict[str, str]:
         headers = {"Content-Type": "application/json"}
+        headers['Authorization'] = "Bearer no-XXXXXXXXXXXXX"     # the participants should use their own api key
         if scenario_id:
             headers["X-Scenario-Id"] = scenario_id
+            headers["X-API-Token"] = "no-XXXXXXXXXXXXX"          # the participants should use their own api key
         return headers
 
     def _call_api(
@@ -98,7 +98,7 @@ class Environment:
         headers = self._headers(scenario_id=scenario_id)
 
         try:
-            resp = requests.get(url, params=params, headers=headers, timeout=self.timeout)
+            resp = requests.get(url, params=params, headers=headers, timeout=self.timeout, verify = False)
             resp.raise_for_status()
             if self.verbose:
                 self.logger.info(f"[Tools API] GET {endpoint} params={params}")
@@ -446,6 +446,19 @@ class AgentsRunner:
                 df = pd.DataFrame(save_result)
                 df.to_csv(os.path.join(save_dir, f"result.csv"), index=False)
 
+                doc = {
+                    "running_metrics": self.running_metrics,
+                    "model_name": self.model_name,
+                    "model_provider": self.model_provider,
+                    "completions": completions,
+                    "sample_processed": (idx + 1),
+                    "status": "completed" if ((idx + 1) == len(scenarios)) else "running",
+                }
+
+                out_path = os.path.join(save_dir,f"results.json")
+                with open(out_path, "w", encoding="utf-8") as fp:
+                    json.dump(doc, fp, ensure_ascii=False, indent=2)
+
 
 # ------------------------------------------------------------------------------
 # CLI
@@ -454,12 +467,12 @@ class AgentsRunner:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Agents benchmarking")
-    parser.add_argument("--server_url", type=str,  default="http://localhost:7860")
+    parser.add_argument("--server_url", type=str,  default="https://120.46.145.77/no")
     parser.add_argument("--model_url", type=str, default="https://openrouter.ai/api/v1")
     parser.add_argument("--model_name", type=str, default="qwen/qwen3.5-35b-a3b")
     parser.add_argument("--model_provider", type=str, default=None)
     parser.add_argument("--num_attempts", type=int, default=1)
-    parser.add_argument("--max_samples", type=int, default=130)
+    parser.add_argument("--max_samples", type=int, default=500)
     parser.add_argument("--save_freq", type=int, default=10)
     parser.add_argument("--max_tokens", type=int, default=16000)
     parser.add_argument("--max_iterations", type=int, default=10)

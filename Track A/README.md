@@ -13,6 +13,13 @@ The challenge will leverage a dedicated, multi-vendor Agent Sandbox capable of m
 
 **Agent Design:** We encourage participants to develop their own Agent structure in this competition by modifying main.py.
 
+
+**Phase-specific guidelines**
+
+For more details on Track A - Phase 1, see [`data/Phase_1/README.md`](data/Phase_1/README.md)
+
+For more details on Track A - Phase 2, see [`data/Phase_2/README.md`](data/Phase_2/README.md)
+
 ---
 
 ## 2. Competition Design
@@ -84,43 +91,8 @@ The challenge will leverage a dedicated, multi-vendor Agent Sandbox capable of m
 ```
 ---
 
-## 4. Participant Guide
 
-Participants may deploy the Agent Tool Server locally:
-
-```
-# Deploy the server
-python server.py
-
-# Run the Agent (example)
-python main.py
-```
-
-The main.py will output the result.csv in this format:
-
-| ID                                   | Answer |
-| ------------------------------------ | ------ |
-| 102fb27a-f7a4-480b-ac9b-ef51d7feb912 | C3     |
-| 1cb15db5-674a-4586-9ff1-a739e00c98e8 | C5\|C7 |
-
-The questions could be single-answer questions or multiple-answer questions. The answers of multiple-answer questions are divided by "|", e.g., 'C3|C7' or 'C5|C9|C11|C20', in ascending order.
-
----
-
-## 5. Deployment File Inventory
-
-| File                     | Purpose                            |
-|--------------------------| ---------------------------------- |
-| `server.py`              | Definition of tools and simulators |
-| `utils.py`               | Related functions                  |
-| `requirements.txt`       | Python dependencies                |
-| `data/Phase_1/test.json` | Question description and choices   |
-| `main.py`                | Interface and Agent runner         |
-| `results/result.csv`     | output files                       |
-
----
-
-## 6. Evaluation Criteria
+## 4. Evaluation Criteria
 
 For each question, the score is given by  score = accuracy $\times$ discount, where the accuracy is defined by IOU (intersection over union), that is, $$\text{accuracy} = \text{intersection}(\text{answers}, \text{ground truth})/\text{union}(\text{answers}, \text{ground truth}),$$
 and to limit the answering time, the discount is calculated as:

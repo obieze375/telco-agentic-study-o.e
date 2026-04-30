@@ -1,5 +1,113 @@
 # Track B: Telco Troubleshooting and Optimization Agentic Challenge
 
+## **API Integration & Execution Guide**
+
+To execute commands and retrieve the CLI output (echo) from the simulation sandbox, send an HTTP POST request to the Agent API endpoint.
+
+### **API Endpoints**
+
+* **Chinese Region (ELB):** https://120.46.145.77/ip/api/agent/execute  
+* **Overseas Region (Hong Kong ECS):** https://124.71.227.61/ip/api/agent/execute
+
+### **Request Headers**
+
+Content-Type: application/json  
+Authorization: Bearer \<Your-Token\>
+
+### **JSON Payload Structure**
+
+| Parameter | Type | Required | Description |
+| :---- | :---- | :---- | :---- |
+| device\_name | String | Yes | Target device hostname (e.g., AGG\_SW\_01, BJHQ\_CSR1000V\_GW\_01). |
+| command | String | Yes | The exact CLI command to execute (must conform to the regex whitelist). |
+| question\_number | String | Yes | Scenario or question identifier (e.g., "34", "others"). |
+
+### **Rate Limiting & Concurrency Rules**
+
+To ensure fair usage and system stability, the API enforces strict limits based on your Authorization token:
+
+* **Concurrency Limit:** Only **1 concurrent request** is allowed at any given time per token. Simultaneous requests will be rejected with a 429 Too Many Requests status.  
+* **Execution Limit:** A maximum of **500 API calls** is permitted per question\_number (scenario) for each token.
+
+### **Python Usage Example**
+
+Below is a standard Python implementation to demonstrate end-to-end API availability, showing how to send normal instructions, trigger the intelligent error-correction engine, and handle rate-limiting.
+
+```python
+import traceback  
+import requests  
+import json  
+import time  
+import urllib3
+
+\# Suppress self-signed certificate warnings for public IP testing  
+urllib3.disable\_warnings() 
+
+\# ELB for Chinese region  
+BASE\_URL \= "\[https://120.46.145.77/ip/api/agent/execute\](https://120.46.145.77/ip/api/agent/execute)"  
+\# HONGKONG ECS for overseas regions  
+\# BASE\_URL \= "\[https://124.71.227.61/ip/api/agent/execute\](https://124.71.227.61/ip/api/agent/execute)"
+
+\# Replace with the actual player token  
+HEADERS \= {  
+    "Content-Type": "application/json",  
+    "Authorization": "Bearer ip-xxx"  
+}
+
+def run\_test(scenario\_name, payload):  
+    print(f"\\n\[{scenario\_name}\] sending requests...")  
+    print(f"Payload: {payload}")  
+    try:  
+        start\_time \= time.time()  
+        \# verify=False is used to ignore HTTPS self-signed certificate warnings  
+        response \= requests.post(BASE\_URL, headers=HEADERS, json=payload, timeout=20, verify=False)  
+        latency \= (time.time() \- start\_time) \* 1000
+
+        print(f"✅ Status Code: {response.status\_code} (Latency: {latency:.2f}ms)")  
+        print(f"📦 Response Content:\\n{json.dumps(response.json(), indent=2, ensure\_ascii=False)}")
+
+    except requests.exceptions.ConnectionError:  
+        print("❌ Fatal Error: Connection is refused. Please check the server status.")  
+    except Exception as e:  
+        print(f"❌ Request Error: {str(e)}")  
+        traceback.print\_exc()
+
+if \_\_name\_\_ \== "\_\_main\_\_":  
+    print("==================================================")  
+    print("🚀 Pre-competition API Interface End-to-End Testing")  
+    print("==================================================")
+
+    \# Scenario 1: Completely correct instruction   
+    \# (Tests cache hit or simulated 404 missing file mechanism)  
+    payload\_valid \= {  
+        "device\_name": "AGG\_SW\_01",  
+        "command": "display current-configuration",  
+        "question\_number": "34"  
+    }  
+    run\_test("Scenario 1 \- Normal Query Instruction", payload\_valid)
+
+    \# Scenario 2: Incorrect device instruction  
+    \# (Tests the intelligent error-correction engine handling invalid vendor syntax)  
+    payload\_syntax\_error \= {  
+        "device\_name": "AGG\_SW\_01",  
+        "command": "display eth-trunk",  
+        "question\_number": "34"  
+    }  
+    run\_test("Scenario 2 \- Simulating syntax error instruction", payload\_syntax\_error)
+
+    \# Scenario 3: Testing concurrency limiting  
+    \# (Sending multiple requests instantly will trigger the rate-limiter)  
+    payload\_rate\_limit \= {  
+        "device\_name": "AGG\_SW\_01",   
+        "command": "show ip int brief",  
+        "question\_number": "others"  
+    }  
+    run\_test("Scenario 3 \- Testing Traffic Verification", payload\_rate\_limit)
+```
+**Regarding Security and Anti-Escape:**
+
+Before proceeding to cache matching, all the above commands undergo strict Token authentication, Redis-based concurrency lock control and rate limiting, as well as the question bank's no\_permission whitelist verification. Command inputs that fail to match the aforementioned regexes will be intercepted by the underlying "CLI Error Simulation Engine" and will dynamically generate realistic, vendor-level error prompts.
+
 ## **Network Device Simulation Sandbox (Agent CLI) Supported Commands List**
 
 This details all the device command-line interfaces (CLIs) supported in the network automation Agent sandbox engine. The current backend system performs strict validation using a **Regular Expression (Regex) whitelist**.
@@ -173,110 +281,3 @@ For Linux host or virtual machine nodes, the system supports basic network confi
 * ip route \[show\] *(Supports ip route or ip route show)*  
 * ifconfig \[\<interface\_name\>\] *(Supports global view or specifying an interface, e.g., ifconfig eth0)*
 
-## **API Integration & Execution Guide**
-
-To execute commands and retrieve the CLI output (echo) from the simulation sandbox, send an HTTP POST request to the Agent API endpoint.
-
-### **API Endpoints**
-
-* **Chinese Region (ELB):** https://120.46.145.77/ip/api/agent/execute  
-* **Overseas Region (Hong Kong ECS):** https://124.71.227.61/ip/api/agent/execute
-
-### **Request Headers**
-
-Content-Type: application/json  
-Authorization: Bearer \<Your-Token\>
-
-### **JSON Payload Structure**
-
-| Parameter | Type | Required | Description |
-| :---- | :---- | :---- | :---- |
-| device\_name | String | Yes | Target device hostname (e.g., AGG\_SW\_01, BJHQ\_CSR1000V\_GW\_01). |
-| command | String | Yes | The exact CLI command to execute (must conform to the regex whitelist). |
-| question\_number | String | Yes | Scenario or question identifier (e.g., "34", "others"). |
-
-### **Rate Limiting & Concurrency Rules**
-
-To ensure fair usage and system stability, the API enforces strict limits based on your Authorization token:
-
-* **Concurrency Limit:** Only **1 concurrent request** is allowed at any given time per token. Simultaneous requests will be rejected with a 429 Too Many Requests status.  
-* **Execution Limit:** A maximum of **500 API calls** is permitted per question\_number (scenario) for each token.
-
-### **Python Usage Example**
-
-Below is a standard Python implementation to demonstrate end-to-end API availability, showing how to send normal instructions, trigger the intelligent error-correction engine, and handle rate-limiting.
-
-```python
-import traceback  
-import requests  
-import json  
-import time  
-import urllib3
-
-\# Suppress self-signed certificate warnings for public IP testing  
-urllib3.disable\_warnings() 
-
-\# ELB for Chinese region  
-BASE\_URL \= "\[https://120.46.145.77/ip/api/agent/execute\](https://120.46.145.77/ip/api/agent/execute)"  
-\# HONGKONG ECS for overseas regions  
-\# BASE\_URL \= "\[https://124.71.227.61/ip/api/agent/execute\](https://124.71.227.61/ip/api/agent/execute)"
-
-\# Replace with the actual player token  
-HEADERS \= {  
-    "Content-Type": "application/json",  
-    "Authorization": "Bearer ip-xxx"  
-}
-
-def run\_test(scenario\_name, payload):  
-    print(f"\\n\[{scenario\_name}\] sending requests...")  
-    print(f"Payload: {payload}")  
-    try:  
-        start\_time \= time.time()  
-        \# verify=False is used to ignore HTTPS self-signed certificate warnings  
-        response \= requests.post(BASE\_URL, headers=HEADERS, json=payload, timeout=20, verify=False)  
-        latency \= (time.time() \- start\_time) \* 1000
-
-        print(f"✅ Status Code: {response.status\_code} (Latency: {latency:.2f}ms)")  
-        print(f"📦 Response Content:\\n{json.dumps(response.json(), indent=2, ensure\_ascii=False)}")
-
-    except requests.exceptions.ConnectionError:  
-        print("❌ Fatal Error: Connection is refused. Please check the server status.")  
-    except Exception as e:  
-        print(f"❌ Request Error: {str(e)}")  
-        traceback.print\_exc()
-
-if \_\_name\_\_ \== "\_\_main\_\_":  
-    print("==================================================")  
-    print("🚀 Pre-competition API Interface End-to-End Testing")  
-    print("==================================================")
-
-    \# Scenario 1: Completely correct instruction   
-    \# (Tests cache hit or simulated 404 missing file mechanism)  
-    payload\_valid \= {  
-        "device\_name": "AGG\_SW\_01",  
-        "command": "display current-configuration",  
-        "question\_number": "34"  
-    }  
-    run\_test("Scenario 1 \- Normal Query Instruction", payload\_valid)
-
-    \# Scenario 2: Incorrect device instruction  
-    \# (Tests the intelligent error-correction engine handling invalid vendor syntax)  
-    payload\_syntax\_error \= {  
-        "device\_name": "AGG\_SW\_01",  
-        "command": "display eth-trunk",  
-        "question\_number": "34"  
-    }  
-    run\_test("Scenario 2 \- Simulating syntax error instruction", payload\_syntax\_error)
-
-    \# Scenario 3: Testing concurrency limiting  
-    \# (Sending multiple requests instantly will trigger the rate-limiter)  
-    payload\_rate\_limit \= {  
-        "device\_name": "AGG\_SW\_01",   
-        "command": "show ip int brief",  
-        "question\_number": "others"  
-    }  
-    run\_test("Scenario 3 \- Testing Traffic Verification", payload\_rate\_limit)
-```
-**Regarding Security and Anti-Escape:**
-
-Before proceeding to cache matching, all the above commands undergo strict Token authentication, Redis-based concurrency lock control and rate limiting, as well as the question bank's no\_permission whitelist verification. Command inputs that fail to match the aforementioned regexes will be intercepted by the underlying "CLI Error Simulation Engine" and will dynamically generate realistic, vendor-level error prompts.

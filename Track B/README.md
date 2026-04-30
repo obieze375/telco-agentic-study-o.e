@@ -46,7 +46,7 @@ This task focuses on IP network operations and maintenance. Participants are req
 
 ### Phase 2 (Elimination Round)
 
-- **Number of Problems:** 100 (released in batches of **20 problems every 3 days**)
+- **Number of Problems:** 100
 - **Base Model:** Qwen3.5-35B-A3B (participants may fine-tune)
 - **Submission Limit:** Each participant is allowed **only three submissions**; execution trace must be uploaded to the server. Unlike Phase 1, there is no daily API call quota, but participants must ensure at least a single run completes successfully.
 - **Scoring:** **Accuracy** as the primary metric; for participants with the same accuracy, the **number of API calls used to solve correct problems** serves as the secondary metric (fewer calls = higher rank)

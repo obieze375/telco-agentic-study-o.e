@@ -19,15 +19,15 @@ result/
 The `result/` folder must contain exactly the required output files described below.
 
 > [!NOTE]
-> IMPORTANT: The zip file should be submitted using HF (the most desirable option), git, or modelscope.
-
-
-> [!NOTE]
-> Participants are hihgly encouraged to submit a technical report of their solution together with the zip file.
+> Participants are highly encouraged to submit a technical report of their solution together with the zip file.
 > However, this is not mandatory and will not be considered in the eval process.
 > IMPORTANT: The 3 selected winners for each track will have to also submit the technical report presenting the proposed solutions.
 
 ---
+
+## How to submit?
+The zip file should be submitted using huggingface (the most desirable option), git, or modelscope.
+Participants must share the submission link with Zindi by emailing megan@zindi.africa 
 
 ## Required Submission File
 

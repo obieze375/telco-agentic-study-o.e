@@ -19,6 +19,10 @@ result/
 The `result/` folder must contain exactly the required output files described below.
 
 > [!NOTE]
+> IMPORTANT: The zip file should be submitted using HF (the most desirable option), git, or https://modelscope.cn.
+
+
+> [!NOTE]
 > IMPORTANT: The 3 selected winners for each track will have to also submit a technical report presenting the proposed solutions.
 
 ---

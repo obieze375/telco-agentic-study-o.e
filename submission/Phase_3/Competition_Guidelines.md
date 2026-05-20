@@ -29,8 +29,9 @@ The `result/` folder must contain exactly the required output files described be
 
 ## How to submit?
 The zip file should be submitted using huggingface (the most desirable option), git, or modelscope.
-Participants must share the submission link with Zindi by emailing megan@zindi.africa 
 
+Participants must share the submission link with Zindi by emailing megan@zindi.africa 
+> [!NOTE]
 > IMPORTANT: No resubmission is allowed during the Phase 3.
 
 ## Required Submission File

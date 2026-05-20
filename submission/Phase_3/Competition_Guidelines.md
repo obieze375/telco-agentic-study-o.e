@@ -21,6 +21,7 @@ The `result/` folder must contain exactly the required output files described be
 > [!NOTE]
 > Participants are highly encouraged to submit a technical report of their solution together with the zip file.
 > However, this is not mandatory and will not be considered in the eval process.
+> 
 > IMPORTANT: The 3 selected winners for each track will have to also submit the technical report presenting the proposed solutions.
 
 ---

@@ -19,7 +19,7 @@ result/
 The `result/` folder must contain exactly the required output files described below.
 
 > [!NOTE]
-> IMPORTANT: The zip file should be submitted using HF (the most desirable option), git, or https://modelscope.cn.
+> IMPORTANT: The zip file should be submitted using HF (the most desirable option), git, or modelscope.
 
 
 > [!NOTE]

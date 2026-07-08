@@ -3,3 +3,4 @@ openai
 pydantic
 pandas
 datasets
+python-dotenv

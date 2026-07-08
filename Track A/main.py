@@ -11,6 +11,7 @@ from typing import Any, Dict, List, Optional
 import pandas as pd
 import httpx
 import requests
+from dotenv import load_dotenv
 from openai import OpenAI, RateLimitError, APIConnectionError, APITimeoutError, APIError
 
 from _types import ToolCall
@@ -24,8 +25,12 @@ from utils import (
     compute_score,
 )
 
-os.environ['AGENT_API_KEY'] = 'sk-XXXXXXXXXXXXX'
-API_KEY = os.environ.get("AGENT_API_KEY", "dummy")
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
+
+API_KEY = os.environ.get("NEBIUS_API_KEY")
+
+if not API_KEY:
+    raise RuntimeError("NEBIUS_API_KEY is not set")
 
 
 # ------------------------------------------------------------------------------
@@ -180,6 +185,7 @@ class AgentsRunner:
             max_tokens: int = 16000,
             max_retries: int = 3,
             max_iterations: int = 20,
+            architecture: str = "baseline",
             verbose: bool = False,
             logger: logging.Logger = None
     ):
@@ -190,6 +196,7 @@ class AgentsRunner:
         self.max_tokens = max_tokens
         self.max_retries = max_retries
         self.max_iterations = max_iterations
+        self.architecture = architecture
         self.verbose = verbose
         self.logger = logger if logger is not None else init_logger()
         self.running_metrics = {}
@@ -246,17 +253,23 @@ class AgentsRunner:
         return None
 
     def run(self, scenario: Dict[str, Any], free_mode: bool = False) -> Dict[str, Any]:
+        if self.architecture == "investigator_decision":
+            return self.run_investigator_decision(scenario=scenario, free_mode=free_mode)
+
+        return self.run_baseline(scenario=scenario, free_mode=free_mode)
+
+    def run_baseline(self, scenario: Dict[str, Any], free_mode: bool = False) -> Dict[str, Any]:
         scenario_id = scenario.get("scenario_id")
         task = scenario.get("task", {})
 
-        root_causes = "".join([f"{item['id']}:{item['label']}\n" for item in task.get("options", [])])
+        options_text = "".join([f"{item['id']}: {item['label']}\n" for item in task.get("options", [])])
 
         # tools from server
         tool_defs = self.environment.get_tools()
         if not tool_defs:
             return {"scenario_id": scenario_id, "status": "unresolved", "reason": "No tools available"}
 
-        question = task.get("description", "") + f"\nOptions:\n{root_causes}"
+        question = task.get("description", "") + f"\nOptions:\n{options_text}"
 
         messages: List[Dict[str, Any]] = [{"role": "user", "content": question}]
 
@@ -337,7 +350,7 @@ class AgentsRunner:
                             "role": "user",
                             "content": (
                                 "This is a single-answer question. Select the most appropriate optimization solution and enclose its number in \\boxed{{}} "
-                                f"in the final answer. For example, \\boxed{{C3}} \nPotential root causes:\n{root_causes}\n"
+                                f"in the final answer. For example, \\boxed{{C3}} \nPotential optimization actions:\n{options_text}\n"
                             ),
                         }
                     )
@@ -347,7 +360,7 @@ class AgentsRunner:
                             "role": "user",
                             "content": (
                                 "This is a multiple-answer question. Select two to four possible optimization solutions and enclose their numbers in \\boxed{{}} "
-                                f"in the final answer. For example,  \\boxed{{C3|C5}} or \\boxed{{C7|C11}}. \nPotential root causes:\n{root_causes}\n"
+                                f"in the final answer. For example,  \\boxed{{C3|C5}} or \\boxed{{C7|C11}}. \nPotential optimization actions:\n{options_text}\n"
                             ),
                         }
                     )
@@ -367,6 +380,252 @@ class AgentsRunner:
             "answer": getattr(last_msg, "content", "") or getattr(last_msg, "reasoning_content","") if last_msg else "",
             "messages": messages,
             "reason": reason,
+            "architecture": "baseline",
+        }
+
+    def _build_investigator_prompt(self) -> str:
+        return (
+            "You are the Investigator Agent for a 5G/telco troubleshooting benchmark.\n"
+            "Your job is evidence gathering and diagnosis only. You may call tools. "
+            "Do not select final C-code options. Do not output boxed answers.\n\n"
+            "Investigation checklist:\n"
+            "1. Inspect throughput logs first and identify the degradation timestamp or window.\n"
+            "2. Check the serving PCI/cell during the degradation window.\n"
+            "3. Check serving RSRP and serving SINR during the degradation window.\n"
+            "4. Check RB allocation/load when congestion or scheduling may be relevant.\n"
+            "5. Check neighbouring cells and neighbour RSRP; identify stronger neighbours and RSRP gaps.\n"
+            "6. Check configuration/handover parameters when late handover, ping-pong, or missing neighbour relation may be relevant.\n"
+            "7. Check user location, cell location, antenna azimuth/tilt, pathloss, and overlap when coverage/antenna issues may be relevant.\n"
+            "8. Explicitly exclude weak hypotheses when evidence does not support them.\n\n"
+            "When you have enough evidence, return a structured evidence report in this JSON-like schema:\n"
+            "{\n"
+            '  "degradation_window": "string",\n'
+            '  "serving_cell": "string",\n'
+            '  "serving_pci": "string",\n'
+            '  "serving_rsrp": "string",\n'
+            '  "serving_sinr": "string",\n'
+            '  "rb_allocation_or_load": "string",\n'
+            '  "best_neighbor": "string",\n'
+            '  "neighbor_rsrp": "string",\n'
+            '  "rsrp_gap_db": "string",\n'
+            '  "handover_or_config_findings": "string",\n'
+            '  "location_or_antenna_findings": "string",\n'
+            '  "suspected_issue": "string",\n'
+            '  "supporting_evidence": ["string"],\n'
+            '  "excluded_causes": ["string"],\n'
+            '  "candidate_action_types": ["string"],\n'
+            '  "uncertainties": ["string"]\n'
+            "}\n"
+            "Again: do not choose C1-C22. Do not output \\boxed{}."
+        )
+
+    def _run_investigator(
+            self,
+            scenario_id: str,
+            question: str,
+            tool_defs: List[Dict[str, Any]],
+    ) -> Dict[str, Any]:
+        messages: List[Dict[str, Any]] = [
+            {"role": "system", "content": self._build_investigator_prompt()},
+            {"role": "user", "content": question},
+        ]
+
+        num_tool_calls = 0
+        list_tool_calls = []
+        status = None
+        reason = None
+        last_msg = None
+        last_iteration = 0
+
+        for i in range(self.max_iterations):
+            last_iteration = i + 1
+            self.logger.info(f"\n[Scenario: {scenario_id}] Investigator round {i + 1}, calling tools:")
+
+            msg = self._call_model(messages, functions=tool_defs)
+            if msg is None:
+                continue
+
+            last_msg = msg
+            messages.append({"role": "assistant", "content": msg.content or "", "tool_calls": msg.tool_calls})
+
+            if self.verbose:
+                print_model_response(msg, logger=self.logger, minimize=False)
+
+            if msg.tool_calls:
+                num_tool_calls += len(msg.tool_calls)
+
+                for j, tool_call in enumerate(msg.tool_calls):
+                    if self.verbose:
+                        print_tool_call(tool_call, logger=self.logger)
+
+                    tool_result = self.environment.execute(tool_call, scenario_id=scenario_id)
+
+                    messages.append({"role": "tool", "content": tool_result, "tool_call_id": tool_call.id})
+
+                    if self.verbose:
+                        print_tool_result(tool_result, logger=self.logger)
+
+                    has_failed = "error" in tool_result
+                    list_tool_calls.append(
+                        {
+                            "function_name": tool_call.function.name,
+                            "arguments": tool_call.function.arguments,
+                            "turn": i + 1,
+                            "has_failed": has_failed,
+                            "order": j + 1,
+                            "results": tool_result
+                        }
+                    )
+
+            elif msg.content:
+                status = "solved"
+                break
+
+            else:
+                status = "unresolved"
+                reason = "Investigator was unable to produce an evidence report."
+                break
+
+        if status is None:
+            status = "unresolved"
+            reason = "The maximum number of investigator iterations has been reached."
+            self.logger.info(f"\n[Scenario: {scenario_id}] Investigator forcing structured evidence report:")
+            messages.append(
+                {
+                    "role": "user",
+                    "content": (
+                        "You have reached the investigation limit. Produce the structured evidence report now. "
+                        "Do not choose final C-code options. Do not output a boxed answer."
+                    ),
+                }
+            )
+            forced_msg = self._call_model(messages, functions=[])
+            if forced_msg is not None:
+                last_msg = forced_msg
+                last_iteration += 1
+                messages.append({"role": "assistant", "content": forced_msg.content or ""})
+                status = "solved"
+                reason = None
+
+        report = getattr(last_msg, "content", "") or getattr(last_msg, "reasoning_content", "") if last_msg else ""
+
+        return {
+            "report": report,
+            "messages": messages,
+            "tool_calls": list_tool_calls,
+            "num_tool_calls": num_tool_calls,
+            "num_iterations": last_iteration,
+            "status": status,
+            "reason": reason,
+        }
+
+    def _build_decision_prompt(self, question: str, options_text: str, investigator_report: str) -> str:
+        return (
+            "You are the Decision Agent for a 5G/telco troubleshooting benchmark.\n"
+            "You cannot call tools. Use only the original task, supplied options, and Investigator Agent evidence report.\n"
+            "Your job is to map the investigator diagnosis to the correct option ID or IDs.\n\n"
+            "Rules:\n"
+            "- Do not invent option IDs.\n"
+            "- For single-answer questions, return exactly one code.\n"
+            "- For multiple-answer questions, return two to four codes.\n"
+            "- Final answer must use exactly this boxed format: \\boxed{C9} or \\boxed{C3|C5}.\n"
+            "- Return only the boxed answer. Do not include explanation, analysis, bullets, or caveats.\n\n"
+            f"Original task and options:\n{question}\n\n"
+            f"Options only:\n{options_text}\n\n"
+            f"Investigator evidence report:\n{investigator_report}"
+        )
+
+    def _run_decision_agent(
+            self,
+            question: str,
+            options_text: str,
+            investigator_report: str,
+    ) -> Dict[str, Any]:
+        messages: List[Dict[str, Any]] = [
+            {
+                "role": "user",
+                "content": self._build_decision_prompt(
+                    question=question,
+                    options_text=options_text,
+                    investigator_report=investigator_report,
+                ),
+            }
+        ]
+
+        msg = self._call_model(messages, functions=[])
+        if msg is None:
+            return {
+                "answer": "",
+                "messages": messages,
+                "status": "unresolved",
+                "reason": "Decision Agent model call failed.",
+                "num_iterations": 1,
+            }
+
+        messages.append({"role": "assistant", "content": msg.content or ""})
+
+        if self.verbose:
+            print_model_response(msg, logger=self.logger, minimize=False)
+
+        raw_answer = getattr(msg, "content", "") or getattr(msg, "reasoning_content", "")
+        extracted_answer = extract_answer_all(raw_answer)
+        answer = f"\\boxed{{{extracted_answer}}}" if extracted_answer else raw_answer
+        return {
+            "answer": answer,
+            "raw_answer": raw_answer,
+            "messages": messages,
+            "status": "solved" if answer else "unresolved",
+            "reason": None if answer else "Decision Agent returned an empty answer.",
+            "num_iterations": 1,
+        }
+
+    def run_investigator_decision(self, scenario: Dict[str, Any], free_mode: bool = False) -> Dict[str, Any]:
+        scenario_id = scenario.get("scenario_id")
+        task = scenario.get("task", {})
+
+        options_text = "".join([f"{item['id']}: {item['label']}\n" for item in task.get("options", [])])
+        question = task.get("description", "") + f"\nOptions:\n{options_text}"
+
+        tool_defs = self.environment.get_tools()
+        if not tool_defs:
+            return {
+                "scenario_id": scenario_id,
+                "status": "unresolved",
+                "reason": "No tools available",
+                "architecture": "investigator_decision",
+            }
+
+        investigator = self._run_investigator(
+            scenario_id=scenario_id,
+            question=question,
+            tool_defs=tool_defs,
+        )
+
+        decision = self._run_decision_agent(
+            question=question,
+            options_text=options_text,
+            investigator_report=investigator.get("report", ""),
+        )
+
+        return {
+            "scenario_id": scenario_id,
+            "num_iterations": investigator.get("num_iterations", 0) + decision.get("num_iterations", 0),
+            "tool_calls": investigator.get("tool_calls", []),
+            "num_tool_calls": investigator.get("num_tool_calls", 0),
+            "status": decision.get("status", "unresolved"),
+            "traces": investigator.get("report", ""),
+            "answer": decision.get("answer", ""),
+            "messages": {
+                "investigator": investigator.get("messages", []),
+                "decision": decision.get("messages", []),
+            },
+            "reason": decision.get("reason") or investigator.get("reason"),
+            "architecture": "investigator_decision",
+            "investigator_report": investigator.get("report", ""),
+            "decision_answer": decision.get("answer", ""),
+            "raw_decision_answer": decision.get("raw_answer", ""),
+            "investigator_iterations": investigator.get("num_iterations", 0),
+            "decision_iterations": decision.get("num_iterations", 0),
         }
 
     def benchmark(
@@ -432,6 +691,11 @@ class AgentsRunner:
                     "ground_truth": scenario.get("answer"),
                     "accuracy": acc,
                     "latency": latency,
+                    "architecture": (sample_response or {}).get("architecture", self.architecture),
+                    "investigator_report": (sample_response or {}).get("investigator_report", ""),
+                    "decision_answer": (sample_response or {}).get("decision_answer", ""),
+                    "investigator_iterations": (sample_response or {}).get("investigator_iterations", 0),
+                    "decision_iterations": (sample_response or {}).get("decision_iterations", 0),
                 }
             )
 
@@ -450,6 +714,7 @@ class AgentsRunner:
                     "running_metrics": self.running_metrics,
                     "model_name": self.model_name,
                     "model_provider": self.model_provider,
+                    "architecture": self.architecture,
                     "completions": completions,
                     "sample_processed": (idx + 1),
                     "status": "completed" if ((idx + 1) == len(scenarios)) else "running",
@@ -478,6 +743,7 @@ if __name__ == "__main__":
     parser.add_argument("--max_iterations", type=int, default=10)
     parser.add_argument("--save_dir", type=str, default="./results")
     parser.add_argument("--log_file", type=str, default="./log.log")
+    parser.add_argument("--architecture", type=str, default="baseline", choices=["baseline", "investigator_decision"])
     parser.add_argument("--free_mode", action="store_false")
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
@@ -493,6 +759,7 @@ if __name__ == "__main__":
         model_provider=args.model_provider,
         max_tokens=args.max_tokens,
         max_iterations=args.max_iterations,
+        architecture=args.architecture,
         verbose=args.verbose,
         logger=logger
     )

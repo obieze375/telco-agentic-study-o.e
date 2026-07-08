@@ -14,13 +14,13 @@ import requests
 from dotenv import load_dotenv
 from openai import OpenAI, RateLimitError, APIConnectionError, APITimeoutError, APIError
 
+from baseline_runner import run_baseline as run_baseline_architecture
 from _types import ToolCall
 from logger import init_logger
 from utils import (
     print_model_response,
     print_tool_call,
     print_tool_result,
-    extract_answer,
     extract_answer_all,
     compute_score,
 )
@@ -259,175 +259,121 @@ class AgentsRunner:
         return self.run_baseline(scenario=scenario, free_mode=free_mode)
 
     def run_baseline(self, scenario: Dict[str, Any], free_mode: bool = False) -> Dict[str, Any]:
-        scenario_id = scenario.get("scenario_id")
-        task = scenario.get("task", {})
+        return run_baseline_architecture(self, scenario=scenario, free_mode=free_mode)
 
-        options_text = "".join([f"{item['id']}: {item['label']}\n" for item in task.get("options", [])])
-
-        # tools from server
-        tool_defs = self.environment.get_tools()
-        if not tool_defs:
-            return {"scenario_id": scenario_id, "status": "unresolved", "reason": "No tools available"}
-
-        question = task.get("description", "") + f"\nOptions:\n{options_text}"
-
-        messages: List[Dict[str, Any]] = [{"role": "user", "content": question}]
-
-        num_tool_calls = 0
-        list_tool_calls = []
-        status = None
-        reason = None
-        last_msg = None
-
-        for i in range(self.max_iterations):
-            self.logger.info(f"\n[Scenario: {scenario_id}] Round {i + 1} conversation, calling tools:")
-
-            msg = self._call_model(messages, functions=tool_defs)
-            if msg is None:
-                continue
-
-            last_msg = msg
-            messages.append({"role": "assistant", "content": msg.content or "", "tool_calls": msg.tool_calls})
-
-            if self.verbose:
-                print_model_response(msg, logger=self.logger, minimize=False)
-
-            # tool calls
-            if msg.tool_calls:
-                num_tool_calls += len(msg.tool_calls)
-
-                for j, tool_call in enumerate(msg.tool_calls):
-                    if self.verbose:
-                        print_tool_call(tool_call, logger=self.logger)
-
-                    tool_result = self.environment.execute(tool_call, scenario_id=scenario_id)
-
-                    messages.append({"role": "tool", "content": tool_result, "tool_call_id": tool_call.id})
-
-                    if self.verbose:
-                        print_tool_result(tool_result, logger=self.logger)
-
-                    has_failed = "error" in tool_result
-                    list_tool_calls.append(
-                        {
-                            "function_name": tool_call.function.name,
-                            "arguments": tool_call.function.arguments,
-                            "turn": i + 1,
-                            "has_failed": has_failed,
-                            "order": j + 1,
-                            "results": tool_result
-                        }
-                    )
-
-            # final answer
-            # elif msg.content or msg.reasoning_content:
-            elif msg.content:
-                status = "solved"
-                break
-
-            else:
-                status = "unresolved"
-                reason = "Unable to answer this question."
-                break
-
-        if status is None:
-            status = "unresolved"
-            reason = "The maximum number of iterations has been reached."
-
-        # Optional final constraint prompt
-        if free_mode:
-            current_answer = getattr(last_msg, "content", "") or getattr(last_msg, "reasoning_content",
-                                                                         "") if last_msg else "",
-            current_traces = getattr(last_msg, "reasoning_content", "") if last_msg else ""
-            agent_answer = extract_answer(current_answer) or extract_answer(current_traces)
-            if agent_answer == "":
-                self.logger.info(f"\n[Scenario: {scenario_id}] Round {i + 2} conversation, answer question:")
-                status = "solved"
-
-                if 'Select the most appropriate optimization solution' in question:
-                    messages.append(
-                        {
-                            "role": "user",
-                            "content": (
-                                "This is a single-answer question. Select the most appropriate optimization solution and enclose its number in \\boxed{{}} "
-                                f"in the final answer. For example, \\boxed{{C3}} \nPotential optimization actions:\n{options_text}\n"
-                            ),
-                        }
-                    )
-                else:
-                    messages.append(
-                        {
-                            "role": "user",
-                            "content": (
-                                "This is a multiple-answer question. Select two to four possible optimization solutions and enclose their numbers in \\boxed{{}} "
-                                f"in the final answer. For example,  \\boxed{{C3|C5}} or \\boxed{{C7|C11}}. \nPotential optimization actions:\n{options_text}\n"
-                            ),
-                        }
-                    )
-
-
-                msg2 = self._call_model(messages, functions=[])
-                if msg2 is not None:
-                    last_msg = msg2
-
-        return {
-            "scenario_id": scenario_id,
-            "num_iterations": (i + 1),
-            "tool_calls": list_tool_calls,
-            "num_tool_calls": num_tool_calls,
-            "status": status,
-            "traces": getattr(last_msg, "reasoning_content", "") if last_msg else "",
-            "answer": getattr(last_msg, "content", "") or getattr(last_msg, "reasoning_content","") if last_msg else "",
-            "messages": messages,
-            "reason": reason,
-            "architecture": "baseline",
-        }
-
-    def _build_investigator_prompt(self) -> str:
+    def _build_investigator_prompt(self, task_description: str, options_text: str) -> str:
         return (
+            "ROLE\n"
             "You are the Investigator Agent for a 5G/telco troubleshooting benchmark.\n"
-            "Your job is evidence gathering and diagnosis only. You may call tools. "
-            "Do not select final C-code options. Do not output boxed answers.\n\n"
-            "Investigation checklist:\n"
-            "1. Inspect throughput logs first and identify the degradation timestamp or window.\n"
-            "2. Check the serving PCI/cell during the degradation window.\n"
-            "3. Check serving RSRP and serving SINR during the degradation window.\n"
-            "4. Check RB allocation/load when congestion or scheduling may be relevant.\n"
-            "5. Check neighbouring cells and neighbour RSRP; identify stronger neighbours and RSRP gaps.\n"
-            "6. Check configuration/handover parameters when late handover, ping-pong, or missing neighbour relation may be relevant.\n"
-            "7. Check user location, cell location, antenna azimuth/tilt, pathloss, and overlap when coverage/antenna issues may be relevant.\n"
-            "8. Explicitly exclude weak hypotheses when evidence does not support them.\n\n"
-            "When you have enough evidence, return a structured evidence report in this JSON-like schema:\n"
+            "Your job is to gather evidence, diagnose the issue, and describe the likely optimization action in plain language.\n\n"
+            "RULES\n"
+            "1. You may call tools.\n"
+            "2. You must inspect evidence before diagnosing.\n"
+            "3. You must not select final C-code options.\n"
+            "4. You must not output \\boxed{}.\n"
+            "5. You may identify likely issue, affected cell, affected parameter, and action direction.\n"
+            "6. Use concrete values from tools where available.\n"
+            "7. If evidence is unavailable, write \"unknown\".\n"
+            "8. Do not invent measurements.\n"
+            "9. Stop investigating once the evidence clearly supports a likely action.\n\n"
+            "DIAGNOSTIC CLASSIFICATION RULES\n"
+            "Before choosing likely_action, classify the issue type.\n"
+            "Do not recommend A3/A5 changes until you compare late_handover, coverage_overlap, interference, and congestion.\n"
+            "Use one diagnosis_class from: late_handover, coverage_overlap, interference, congestion, antenna_geometry, transmission, unknown.\n"
+            "Consider late_handover only when serving quality is poor, a neighbour is clearly better, and evidence supports earlier handover.\n"
+            "Consider coverage_overlap when multiple cells have similar RSRP or overlapping coverage and the likely remedy is to reduce overlap or stabilize handover.\n"
+            "Consider interference when SINR is poor despite usable RSRP, especially with nearby competing cells.\n"
+            "Consider congestion when RB allocation/load is high while radio quality is otherwise acceptable.\n"
+            "Consider antenna_geometry only when location, azimuth, tilt, pathloss, or overlap evidence supports it.\n"
+            "Consider transmission only when radio evidence does not explain throughput degradation or logs suggest server/backhaul issues.\n"
+            "For every report, include rejected_diagnosis_classes explaining at least two plausible alternatives you rejected.\n\n"
+            "STRUCTURED CONTEXT\n"
+            "<task>\n"
+            f"{task_description}\n"
+            "</task>\n\n"
+            "<options>\n"
+            f"{options_text}\n"
+            "</options>\n\n"
+            "<investigation_checklist>\n"
+            "1. Inspect throughput logs first.\n"
+            "2. Identify degradation timestamp/window.\n"
+            "3. Check serving PCI/cell during degradation.\n"
+            "4. Check serving RSRP and SINR.\n"
+            "5. Check RB allocation/load if relevant.\n"
+            "6. Check neighbouring cells and neighbour RSRP.\n"
+            "7. Check config/handover parameters if relevant.\n"
+            "8. Check location, antenna, pathloss, and overlap if relevant.\n"
+            "9. Exclude unsupported hypotheses.\n"
+            "</investigation_checklist>\n\n"
+            "EXAMPLE OUTPUT\n"
             "{\n"
-            '  "degradation_window": "string",\n'
-            '  "serving_cell": "string",\n'
-            '  "serving_pci": "string",\n'
-            '  "serving_rsrp": "string",\n'
-            '  "serving_sinr": "string",\n'
-            '  "rb_allocation_or_load": "string",\n'
-            '  "best_neighbor": "string",\n'
-            '  "neighbor_rsrp": "string",\n'
-            '  "rsrp_gap_db": "string",\n'
-            '  "handover_or_config_findings": "string",\n'
-            '  "location_or_antenna_findings": "string",\n'
-            '  "suspected_issue": "string",\n'
-            '  "supporting_evidence": ["string"],\n'
-            '  "excluded_causes": ["string"],\n'
-            '  "candidate_action_types": ["string"],\n'
-            '  "uncertainties": ["string"]\n'
-            "}\n"
-            "Again: do not choose C1-C22. Do not output \\boxed{}."
+            '  "degradation_window": "2024-09-20 22:21:34.219",\n'
+            '  "timestamp_used_for_measurements": "2024-09-20 22:21:34.219",\n'
+            '  "serving_cell": "3225568_1",\n'
+            '  "serving_pci": "101",\n'
+            '  "serving_rsrp": "-108 dBm",\n'
+            '  "serving_sinr": "3 dB",\n'
+            '  "best_neighbor": "3265067_3",\n'
+            '  "best_neighbor_pci": "201",\n'
+            '  "neighbor_rsrp": "-95 dBm",\n'
+            '  "rsrp_gap_db": "13 dB stronger than serving",\n'
+            '  "suspected_issue": "late handover to stronger neighbouring cell",\n'
+            '  "diagnosis_class": "late_handover",\n'
+            '  "rejected_diagnosis_classes": [\n'
+            '    {\n'
+            '      "class": "coverage_overlap",\n'
+            '      "reason": "Neighbour was significantly stronger than serving rather than similar in strength"\n'
+            '    },\n'
+            '    {\n'
+            '      "class": "congestion",\n'
+            '      "reason": "No high RB allocation/load evidence was available"\n'
+            '    }\n'
+            '  ],\n'
+            '  "affected_cell": "3225568_1",\n'
+            '  "likely_action": "decrease A3 offset threshold for serving cell 3225568_1",\n'
+            '  "diagnosed_action": "decrease A3 offset threshold",\n'
+            '  "affected_parameter": "A3 offset threshold",\n'
+            '  "action_direction": "decrease",\n'
+            '  "option_matching_hint": "choose the option that decreases A3 Offset threshold for 3225568_1",\n'
+            '  "supporting_evidence": [\n'
+            '    "Throughput degraded during the selected timestamp",\n'
+            '    "Serving RSRP was weak",\n'
+            '    "Neighbouring cell was significantly stronger"\n'
+            '  ],\n'
+            '  "excluded_causes": [\n'
+            '    "No evidence of load congestion",\n'
+            '    "No evidence of antenna misalignment"\n'
+            '  ],\n'
+            '  "uncertainties": [],\n'
+            '  "confidence": "high"\n'
+            "}\n\n"
+            "OUTPUT CONTRACT\n"
+            "Return only the structured evidence report.\n"
+            "The report must include diagnosis_class and rejected_diagnosis_classes.\n"
+            "The report must include diagnosed_action, affected_cell, affected_parameter, action_direction, and option_matching_hint.\n"
+            "Do not choose C1-C22.\n"
+            "Do not output \\boxed{}."
         )
 
     def _run_investigator(
             self,
             scenario_id: str,
-            question: str,
+            task_description: str,
+            options_text: str,
             tool_defs: List[Dict[str, Any]],
     ) -> Dict[str, Any]:
         messages: List[Dict[str, Any]] = [
-            {"role": "system", "content": self._build_investigator_prompt()},
-            {"role": "user", "content": question},
+            {
+                "role": "system",
+                "content": self._build_investigator_prompt(
+                    task_description=task_description,
+                    options_text=options_text,
+                ),
+            },
+            {
+                "role": "user",
+                "content": "Begin the investigation. Use tools as needed, then return only the structured evidence report.",
+            },
         ]
 
         num_tool_calls = 0
@@ -495,6 +441,8 @@ class AgentsRunner:
                     "role": "user",
                     "content": (
                         "You have reached the investigation limit. Produce the structured evidence report now. "
+                        "Include diagnosis_class and rejected_diagnosis_classes. "
+                        "Include diagnosed_action, affected_cell, affected_parameter, action_direction, and option_matching_hint. "
                         "Do not choose final C-code options. Do not output a boxed answer."
                     ),
                 }
@@ -519,25 +467,46 @@ class AgentsRunner:
             "reason": reason,
         }
 
-    def _build_decision_prompt(self, question: str, options_text: str, investigator_report: str) -> str:
+    def _build_decision_prompt(self, task_description: str, options_text: str, investigator_report: str) -> str:
         return (
+            "ROLE\n"
             "You are the Decision Agent for a 5G/telco troubleshooting benchmark.\n"
-            "You cannot call tools. Use only the original task, supplied options, and Investigator Agent evidence report.\n"
-            "Your job is to map the investigator diagnosis to the correct option ID or IDs.\n\n"
-            "Rules:\n"
-            "- Do not invent option IDs.\n"
-            "- For single-answer questions, return exactly one code.\n"
-            "- For multiple-answer questions, return two to four codes.\n"
-            "- Final answer must use exactly this boxed format: \\boxed{C9} or \\boxed{C3|C5}.\n"
-            "- Return only the boxed answer. Do not include explanation, analysis, bullets, or caveats.\n\n"
-            f"Original task and options:\n{question}\n\n"
-            f"Options only:\n{options_text}\n\n"
-            f"Investigator evidence report:\n{investigator_report}"
+            "Your job is to map the Investigator Agent's diagnosis to the correct supplied C-option ID or IDs.\n\n"
+            "RULES\n"
+            "1. You cannot call tools.\n"
+            "2. Use only the task, options, and investigator report.\n"
+            "3. Do not invent option IDs.\n"
+            "4. Do not repeat the investigation.\n"
+            "5. Select the option whose label best matches the diagnosed action, affected cell, parameter, and action direction.\n"
+            "6. If the task asks for one answer, return exactly one option ID.\n"
+            "7. If the task asks for multiple answers, return two to four option IDs.\n"
+            "8. Output boxed answer only.\n\n"
+            "STRUCTURED CONTEXT\n"
+            "<task>\n"
+            f"{task_description}\n"
+            "</task>\n\n"
+            "<options>\n"
+            f"{options_text}\n"
+            "</options>\n\n"
+            "<investigator_report>\n"
+            f"{investigator_report}\n"
+            "</investigator_report>\n\n"
+            "EXAMPLES\n"
+            "Single answer:\n"
+            "\\boxed{C9}\n\n"
+            "Multiple answers:\n"
+            "\\boxed{C3|C5}\n\n"
+            "OUTPUT CONTRACT\n"
+            "Return only the boxed answer.\n"
+            "No explanation.\n"
+            "No markdown.\n"
+            "No JSON.\n"
+            "No extra commentary."
         )
 
     def _run_decision_agent(
             self,
-            question: str,
+            task_description: str,
             options_text: str,
             investigator_report: str,
     ) -> Dict[str, Any]:
@@ -545,7 +514,7 @@ class AgentsRunner:
             {
                 "role": "user",
                 "content": self._build_decision_prompt(
-                    question=question,
+                    task_description=task_description,
                     options_text=options_text,
                     investigator_report=investigator_report,
                 ),
@@ -583,8 +552,9 @@ class AgentsRunner:
         scenario_id = scenario.get("scenario_id")
         task = scenario.get("task", {})
 
+        task_description = task.get("description", "")
         options_text = "".join([f"{item['id']}: {item['label']}\n" for item in task.get("options", [])])
-        question = task.get("description", "") + f"\nOptions:\n{options_text}"
+        question = task_description + f"\nOptions:\n{options_text}"
 
         tool_defs = self.environment.get_tools()
         if not tool_defs:
@@ -597,12 +567,13 @@ class AgentsRunner:
 
         investigator = self._run_investigator(
             scenario_id=scenario_id,
-            question=question,
+            task_description=task_description,
+            options_text=options_text,
             tool_defs=tool_defs,
         )
 
         decision = self._run_decision_agent(
-            question=question,
+            task_description=task_description,
             options_text=options_text,
             investigator_report=investigator.get("report", ""),
         )
@@ -740,7 +711,7 @@ if __name__ == "__main__":
     parser.add_argument("--max_samples", type=int, default=500)
     parser.add_argument("--save_freq", type=int, default=10)
     parser.add_argument("--max_tokens", type=int, default=16000)
-    parser.add_argument("--max_iterations", type=int, default=10)
+    parser.add_argument("--max_iterations", type=int, default=15)
     parser.add_argument("--save_dir", type=str, default="./results")
     parser.add_argument("--log_file", type=str, default="./log.log")
     parser.add_argument("--architecture", type=str, default="baseline", choices=["baseline", "investigator_decision"])

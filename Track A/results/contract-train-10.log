@@ -1,0 +1,801 @@
+2026-07-08 23:14:24,030 - root - INFO - [Tools API] GET /scenario/all params={}
+2026-07-08 23:14:24,145 - root - INFO - [Scenario 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] attempt 1/1
+2026-07-08 23:14:24,154 - root - INFO - [Tools API] GET /tools params={}
+2026-07-08 23:14:24,154 - root - INFO - 
+[Scenario: 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] Investigator round 1, calling tools:
+2026-07-08 23:14:24,965 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:24,972 - root - INFO - [Request tool call chatcmpl-tool-a18e32bb8d7b121e] function get_throughput_logs()
+2026-07-08 23:14:24,972 - root - INFO - [95m[Executing tool call chatcmpl-tool-a18e32bb8d7b121e] function get_throughput_logs()[0m
+2026-07-08 23:14:24,988 - root - INFO - [Tools API] GET /throughput-logs params={}
+2026-07-08 23:14:24,988 - root - INFO - [95m[Tool result] {"Logs": "Timestamp|5G KPI PCell Layer2 MAC DL Throughput [Mbps]\n2024-09-20 22:21:31.944|520.9\n2024-09-20 22:21:32.210|552.14\n2024-09-20 22:21:33.676|393.59\n2024-09-20 22:21:34.362|81.73\n2024-09-20 22:21:35.701|37.22\n2024-09-20 22:21:36.226|62.04\n2024-09-20 22:21:37.967|25.61\n2024-09-20 22:21:38.260|59.12\n2024-09-20 22:21:39.204|47.99\n2024-09-20 22:21:40.781|591.14\n2024-09-20 22:21:41.981|340.47\n2024-09-20 22:21:42.696|399.52\n"} [0m
+2026-07-08 23:14:24,988 - root - INFO - 
+[Scenario: 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] Investigator round 2, calling tools:
+2026-07-08 23:14:25,937 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:25,938 - root - INFO - [Request tool call chatcmpl-tool-b2d251b05b37b3c9] function get_serving_cell_pci(time=2024-09-20 22:21:34.362)
+2026-07-08 23:14:25,938 - root - INFO - [95m[Executing tool call chatcmpl-tool-b2d251b05b37b3c9] function get_serving_cell_pci(time=2024-09-20 22:21:34.362)[0m
+2026-07-08 23:14:25,948 - root - INFO - [Tools API] GET /serving-cell-pci params={'time': '2024-09-20 22:21:34.362'}
+2026-07-08 23:14:25,948 - root - INFO - [95m[Tool result] {"PCI": 166} [0m
+2026-07-08 23:14:25,948 - root - INFO - 
+[Scenario: 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] Investigator round 3, calling tools:
+2026-07-08 23:14:26,618 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:26,620 - root - INFO - [Request tool call chatcmpl-tool-b1972873e6d8e630] function get_cell_info(pci=166)
+2026-07-08 23:14:26,620 - root - INFO - [95m[Executing tool call chatcmpl-tool-b1972873e6d8e630] function get_cell_info(pci=166)[0m
+2026-07-08 23:14:26,629 - root - INFO - [Tools API] GET /cell-info params={'pci': 166}
+2026-07-08 23:14:26,630 - root - INFO - [95m[Tool result] {"gNodeB ID": 3239249, "Cell ID": 3, "Longitude": 121.4713147472, "Latitude": 31.1447758717, "Mechanical Azimuth": 67, "Mechanical Downtilt": 3, "Digital Tilt": 11, "Height": 45.9, "Duplex Mode": "TDD", "PCI": 166, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 16, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 2, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3279943_504990_420,3267220_504990_966,3239189_504990_362,3272070_504990_240]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:14:26,630 - root - INFO - 
+[Scenario: 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] Investigator round 4, calling tools:
+2026-07-08 23:14:27,677 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:27,678 - root - INFO - [Request tool call chatcmpl-tool-85fa1febe2b3dd03] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.362)
+2026-07-08 23:14:27,678 - root - INFO - [95m[Executing tool call chatcmpl-tool-85fa1febe2b3dd03] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.362)[0m
+2026-07-08 23:14:27,685 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:34.362'}
+2026-07-08 23:14:27,685 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -87.37} [0m
+2026-07-08 23:14:27,685 - root - INFO - 
+[Scenario: 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] Investigator round 5, calling tools:
+2026-07-08 23:14:28,496 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:28,497 - root - INFO - [Request tool call chatcmpl-tool-afc296a652377b33] function get_serving_cell_sinr(time=2024-09-20 22:21:34.362)
+2026-07-08 23:14:28,497 - root - INFO - [95m[Executing tool call chatcmpl-tool-afc296a652377b33] function get_serving_cell_sinr(time=2024-09-20 22:21:34.362)[0m
+2026-07-08 23:14:28,505 - root - INFO - [Tools API] GET /serving-cell-sinr params={'time': '2024-09-20 22:21:34.362'}
+2026-07-08 23:14:28,505 - root - INFO - [95m[Tool result] {"SS-SINR (dB)": 2.42} [0m
+2026-07-08 23:14:28,505 - root - INFO - 
+[Scenario: 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] Investigator round 6, calling tools:
+2026-07-08 23:14:29,725 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:29,725 - root - INFO - [Request tool call chatcmpl-tool-9c9f11da9bd8cc3a] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.362)
+2026-07-08 23:14:29,725 - root - INFO - [95m[Executing tool call chatcmpl-tool-9c9f11da9bd8cc3a] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.362)[0m
+2026-07-08 23:14:29,733 - root - INFO - [Tools API] GET /neighboring-cells-pci params={'time': '2024-09-20 22:21:34.362'}
+2026-07-08 23:14:29,733 - root - INFO - [95m[Tool result] {"PCIs": [966, 420, 362]} [0m
+2026-07-08 23:14:29,733 - root - INFO - 
+[Scenario: 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] Investigator round 7, calling tools:
+2026-07-08 23:14:30,956 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:30,956 - root - INFO - [Request tool call chatcmpl-tool-bde36c02fe6c8541] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.362, pci=966)
+2026-07-08 23:14:30,956 - root - INFO - [95m[Executing tool call chatcmpl-tool-bde36c02fe6c8541] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.362, pci=966)[0m
+2026-07-08 23:14:30,966 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.362', 'pci': 966}
+2026-07-08 23:14:30,966 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -86.0} [0m
+2026-07-08 23:14:30,966 - root - INFO - 
+[Scenario: 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] Investigator round 8, calling tools:
+2026-07-08 23:14:32,490 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:32,490 - root - INFO - [Request tool call chatcmpl-tool-97e8272525ec68c3] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.362, pci=420)
+2026-07-08 23:14:32,490 - root - INFO - [95m[Executing tool call chatcmpl-tool-97e8272525ec68c3] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.362, pci=420)[0m
+2026-07-08 23:14:32,499 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.362', 'pci': 420}
+2026-07-08 23:14:32,499 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -89.0} [0m
+2026-07-08 23:14:32,499 - root - INFO - 
+[Scenario: 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] Investigator round 9, calling tools:
+2026-07-08 23:14:33,567 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:33,568 - root - INFO - [Request tool call chatcmpl-tool-9429b88b16691ae7] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.362, pci=362)
+2026-07-08 23:14:33,568 - root - INFO - [95m[Executing tool call chatcmpl-tool-9429b88b16691ae7] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.362, pci=362)[0m
+2026-07-08 23:14:33,578 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.362', 'pci': 362}
+2026-07-08 23:14:33,578 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -94.0} [0m
+2026-07-08 23:14:33,579 - root - INFO - 
+[Scenario: 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] Investigator round 10, calling tools:
+2026-07-08 23:14:34,232 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:34,233 - root - INFO - [Request tool call chatcmpl-tool-83659f49121eecc2] function get_cell_info(pci=966)
+2026-07-08 23:14:34,233 - root - INFO - [95m[Executing tool call chatcmpl-tool-83659f49121eecc2] function get_cell_info(pci=966)[0m
+2026-07-08 23:14:34,241 - root - INFO - [Tools API] GET /cell-info params={'pci': 966}
+2026-07-08 23:14:34,242 - root - INFO - [95m[Tool result] {"gNodeB ID": 3267220, "Cell ID": 2, "Longitude": 121.474936591, "Latitude": 31.1449528248, "Mechanical Azimuth": 292, "Mechanical Downtilt": 1, "Digital Tilt": 3, "Height": 45.7, "Duplex Mode": "TDD", "PCI": 966, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 21, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 2, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3279943_504990_420,3239249_504990_166,3239189_504990_362,3272070_504990_240]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:14:34,242 - root - INFO - 
+[Scenario: 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] Investigator forcing structured evidence report:
+2026-07-08 23:14:43,754 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:44,266 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:44,266 - root - INFO - [31;1m[Agent response] \boxed{C14}[0m
+
+2026-07-08 23:14:44,267 - root - INFO - [95m
+[Scenario: 08e221e5-3ed8-42ed-b7b3-0fd9dfd8d99e] Agent's answer is C14, ground truth is C2|C8|C11|C16[0m.
+2026-07-08 23:14:44,267 - root - INFO - [Scenario 0cd874c0-eab3-4963-a51f-28fc5e004ed8] attempt 1/1
+2026-07-08 23:14:44,273 - root - INFO - [Tools API] GET /tools params={}
+2026-07-08 23:14:44,273 - root - INFO - 
+[Scenario: 0cd874c0-eab3-4963-a51f-28fc5e004ed8] Investigator round 1, calling tools:
+2026-07-08 23:14:44,880 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:44,881 - root - INFO - [Request tool call chatcmpl-tool-a690348a736dee73] function get_throughput_logs()
+2026-07-08 23:14:44,881 - root - INFO - [95m[Executing tool call chatcmpl-tool-a690348a736dee73] function get_throughput_logs()[0m
+2026-07-08 23:14:44,886 - root - INFO - [Tools API] GET /throughput-logs params={}
+2026-07-08 23:14:44,886 - root - INFO - [95m[Tool result] {"Logs": "Timestamp|5G KPI PCell Layer2 MAC DL Throughput [Mbps]\n2024-09-20 22:21:31.357|466.35\n2024-09-20 22:21:32.734|569.87\n2024-09-20 22:21:33.635|410.34\n2024-09-20 22:21:34.219|70.51\n2024-09-20 22:21:35.683|51.1\n2024-09-20 22:21:36.489|89.24\n2024-09-20 22:21:37.633|65.27\n2024-09-20 22:21:38.455|79.39\n2024-09-20 22:21:39.806|53.91\n2024-09-20 22:21:40.115|426.8\n2024-09-20 22:21:41.921|431.26\n2024-09-20 22:21:42.637|471.5\n"} [0m
+2026-07-08 23:14:44,886 - root - INFO - 
+[Scenario: 0cd874c0-eab3-4963-a51f-28fc5e004ed8] Investigator round 2, calling tools:
+2026-07-08 23:14:46,213 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:46,214 - root - INFO - [Request tool call chatcmpl-tool-bc75e0563a85d49c] function get_serving_cell_pci(time=2024-09-20 22:21:34.219)
+2026-07-08 23:14:46,214 - root - INFO - [95m[Executing tool call chatcmpl-tool-bc75e0563a85d49c] function get_serving_cell_pci(time=2024-09-20 22:21:34.219)[0m
+2026-07-08 23:14:46,220 - root - INFO - [Tools API] GET /serving-cell-pci params={'time': '2024-09-20 22:21:34.219'}
+2026-07-08 23:14:46,220 - root - INFO - [95m[Tool result] {"PCI": 546} [0m
+2026-07-08 23:14:46,220 - root - INFO - 
+[Scenario: 0cd874c0-eab3-4963-a51f-28fc5e004ed8] Investigator round 3, calling tools:
+2026-07-08 23:14:46,728 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:46,729 - root - INFO - [Request tool call chatcmpl-tool-a5a854dcb929b744] function get_cell_info(pci=546)
+2026-07-08 23:14:46,729 - root - INFO - [95m[Executing tool call chatcmpl-tool-a5a854dcb929b744] function get_cell_info(pci=546)[0m
+2026-07-08 23:14:46,734 - root - INFO - [Tools API] GET /cell-info params={'pci': 546}
+2026-07-08 23:14:46,734 - root - INFO - [95m[Tool result] {"gNodeB ID": 3213751, "Cell ID": 2, "Longitude": 121.4736068325, "Latitude": 31.1460110535, "Mechanical Azimuth": 131, "Mechanical Downtilt": 0, "Digital Tilt": 4, "Height": 15.8, "Duplex Mode": "TDD", "PCI": 546, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 29, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 6, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3211532_504990_344,3244912_504990_494,3274217_504990_583]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:14:46,734 - root - INFO - 
+[Scenario: 0cd874c0-eab3-4963-a51f-28fc5e004ed8] Investigator round 4, calling tools:
+2026-07-08 23:14:48,567 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:48,568 - root - INFO - [Request tool call chatcmpl-tool-86e2b6a922b0d197] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.219)
+2026-07-08 23:14:48,568 - root - INFO - [95m[Executing tool call chatcmpl-tool-86e2b6a922b0d197] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.219)[0m
+2026-07-08 23:14:48,574 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:34.219'}
+2026-07-08 23:14:48,574 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -85.83} [0m
+2026-07-08 23:14:48,574 - root - INFO - 
+[Scenario: 0cd874c0-eab3-4963-a51f-28fc5e004ed8] Investigator round 5, calling tools:
+2026-07-08 23:14:49,489 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:49,489 - root - INFO - [Request tool call chatcmpl-tool-9ce5ab7ac9abc59f] function get_serving_cell_sinr(time=2024-09-20 22:21:34.219)
+2026-07-08 23:14:49,489 - root - INFO - [95m[Executing tool call chatcmpl-tool-9ce5ab7ac9abc59f] function get_serving_cell_sinr(time=2024-09-20 22:21:34.219)[0m
+2026-07-08 23:14:49,496 - root - INFO - [Tools API] GET /serving-cell-sinr params={'time': '2024-09-20 22:21:34.219'}
+2026-07-08 23:14:49,497 - root - INFO - [95m[Tool result] {"SS-SINR (dB)": 17.78} [0m
+2026-07-08 23:14:49,497 - root - INFO - 
+[Scenario: 0cd874c0-eab3-4963-a51f-28fc5e004ed8] Investigator round 6, calling tools:
+2026-07-08 23:14:50,512 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:50,513 - root - INFO - [Request tool call chatcmpl-tool-96bd6cba576b1693] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.219)
+2026-07-08 23:14:50,513 - root - INFO - [95m[Executing tool call chatcmpl-tool-96bd6cba576b1693] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.219)[0m
+2026-07-08 23:14:50,520 - root - INFO - [Tools API] GET /neighboring-cells-pci params={'time': '2024-09-20 22:21:34.219'}
+2026-07-08 23:14:50,520 - root - INFO - [95m[Tool result] {"PCIs": [494, 344, 583]} [0m
+2026-07-08 23:14:50,520 - root - INFO - 
+[Scenario: 0cd874c0-eab3-4963-a51f-28fc5e004ed8] Investigator round 7, calling tools:
+2026-07-08 23:14:51,823 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:51,823 - root - INFO - [Request tool call chatcmpl-tool-b53447a029c0e489] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.219, pci=494)
+2026-07-08 23:14:51,823 - root - INFO - [95m[Executing tool call chatcmpl-tool-b53447a029c0e489] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.219, pci=494)[0m
+2026-07-08 23:14:51,832 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.219', 'pci': 494}
+2026-07-08 23:14:51,833 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -93.0} [0m
+2026-07-08 23:14:51,833 - root - INFO - 
+[Scenario: 0cd874c0-eab3-4963-a51f-28fc5e004ed8] Investigator round 8, calling tools:
+2026-07-08 23:14:52,561 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:52,562 - root - INFO - [Request tool call chatcmpl-tool-9dccf1dab24f712d] function get_cell_info(pci=494)
+2026-07-08 23:14:52,562 - root - INFO - [95m[Executing tool call chatcmpl-tool-9dccf1dab24f712d] function get_cell_info(pci=494)[0m
+2026-07-08 23:14:52,569 - root - INFO - [Tools API] GET /cell-info params={'pci': 494}
+2026-07-08 23:14:52,569 - root - INFO - [95m[Tool result] {"gNodeB ID": 3244912, "Cell ID": 3, "Longitude": 121.4752629661, "Latitude": 31.1505829287, "Mechanical Azimuth": 184, "Mechanical Downtilt": 5, "Digital Tilt": 7, "Height": 33.7, "Duplex Mode": "TDD", "PCI": 494, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 28, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 6, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3211532_504990_344,3213751_504990_546,3274217_504990_583]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:14:52,569 - root - INFO - 
+[Scenario: 0cd874c0-eab3-4963-a51f-28fc5e004ed8] Investigator round 9, calling tools:
+2026-07-08 23:14:53,790 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:53,792 - root - INFO - [Request tool call chatcmpl-tool-89e85795d549df22] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.219)
+2026-07-08 23:14:53,792 - root - INFO - [95m[Executing tool call chatcmpl-tool-89e85795d549df22] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.219)[0m
+2026-07-08 23:14:53,807 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:34.219'}
+2026-07-08 23:14:53,807 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -85.83} [0m
+2026-07-08 23:14:53,807 - root - INFO - 
+[Scenario: 0cd874c0-eab3-4963-a51f-28fc5e004ed8] Investigator round 10, calling tools:
+2026-07-08 23:14:54,814 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:14:54,814 - root - INFO - [Request tool call chatcmpl-tool-bb079dbea031203f] function get_serving_cell_sinr(time=2024-09-20 22:21:34.219)
+2026-07-08 23:14:54,814 - root - INFO - [95m[Executing tool call chatcmpl-tool-bb079dbea031203f] function get_serving_cell_sinr(time=2024-09-20 22:21:34.219)[0m
+2026-07-08 23:14:54,823 - root - INFO - [Tools API] GET /serving-cell-sinr params={'time': '2024-09-20 22:21:34.219'}
+2026-07-08 23:14:54,823 - root - INFO - [95m[Tool result] {"SS-SINR (dB)": 17.78} [0m
+2026-07-08 23:14:54,823 - root - INFO - 
+[Scenario: 0cd874c0-eab3-4963-a51f-28fc5e004ed8] Investigator forcing structured evidence report:
+2026-07-08 23:15:05,053 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:05,304 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:05,305 - root - INFO - [31;1m[Agent response] \boxed{C1}[0m
+
+2026-07-08 23:15:05,306 - root - INFO - [95m
+[Scenario: 0cd874c0-eab3-4963-a51f-28fc5e004ed8] Agent's answer is C1, ground truth is C9[0m.
+2026-07-08 23:15:05,306 - root - INFO - [Scenario ac53a506-f1dd-404f-bb93-1ffb337ce0e6] attempt 1/1
+2026-07-08 23:15:05,309 - root - INFO - [Tools API] GET /tools params={}
+2026-07-08 23:15:05,309 - root - INFO - 
+[Scenario: ac53a506-f1dd-404f-bb93-1ffb337ce0e6] Investigator round 1, calling tools:
+2026-07-08 23:15:05,853 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:05,855 - root - INFO - [Request tool call chatcmpl-tool-af470196b0bfad17] function get_throughput_logs()
+2026-07-08 23:15:05,856 - root - INFO - [95m[Executing tool call chatcmpl-tool-af470196b0bfad17] function get_throughput_logs()[0m
+2026-07-08 23:15:05,869 - root - INFO - [Tools API] GET /throughput-logs params={}
+2026-07-08 23:15:05,869 - root - INFO - [95m[Tool result] {"Logs": "Timestamp|5G KPI PCell Layer2 MAC DL Throughput [Mbps]\n2024-09-20 22:21:31.523|549.92\n2024-09-20 22:21:32.397|354.51\n2024-09-20 22:21:33.333|405.21\n2024-09-20 22:21:34.197|75.01\n2024-09-20 22:21:35.155|26.45\n2024-09-20 22:21:36.377|51.69\n2024-09-20 22:21:37.734|25.17\n2024-09-20 22:21:38.508|45.08\n2024-09-20 22:21:39.455|185.6\n2024-09-20 22:21:40.675|488.22\n2024-09-20 22:21:41.159|480.02\n2024-09-20 22:21:42.335|314.56\n"} [0m
+2026-07-08 23:15:05,869 - root - INFO - 
+[Scenario: ac53a506-f1dd-404f-bb93-1ffb337ce0e6] Investigator round 2, calling tools:
+2026-07-08 23:15:07,102 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:07,103 - root - INFO - [Request tool call chatcmpl-tool-bb5782b2ec28078c] function get_serving_cell_pci(time=2024-09-20 22:21:34.197)
+2026-07-08 23:15:07,103 - root - INFO - [95m[Executing tool call chatcmpl-tool-bb5782b2ec28078c] function get_serving_cell_pci(time=2024-09-20 22:21:34.197)[0m
+2026-07-08 23:15:07,112 - root - INFO - [Tools API] GET /serving-cell-pci params={'time': '2024-09-20 22:21:34.197'}
+2026-07-08 23:15:07,112 - root - INFO - [95m[Tool result] {"PCI": 156} [0m
+2026-07-08 23:15:07,112 - root - INFO - 
+[Scenario: ac53a506-f1dd-404f-bb93-1ffb337ce0e6] Investigator round 3, calling tools:
+2026-07-08 23:15:07,764 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:07,765 - root - INFO - [Request tool call chatcmpl-tool-ac9d6d16e606b862] function get_cell_info(pci=156)
+2026-07-08 23:15:07,765 - root - INFO - [95m[Executing tool call chatcmpl-tool-ac9d6d16e606b862] function get_cell_info(pci=156)[0m
+2026-07-08 23:15:07,770 - root - INFO - [Tools API] GET /cell-info params={'pci': 156}
+2026-07-08 23:15:07,770 - root - INFO - [95m[Tool result] {"gNodeB ID": 3213863, "Cell ID": 2, "Longitude": 121.4665584695, "Latitude": 31.1449241774, "Mechanical Azimuth": 33, "Mechanical Downtilt": 6, "Digital Tilt": 3, "Height": 39.1, "Duplex Mode": "TDD", "PCI": 156, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 26, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 10, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3254533_504990_176,3278143_504990_352,3211229_504990_236]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:15:07,770 - root - INFO - 
+[Scenario: ac53a506-f1dd-404f-bb93-1ffb337ce0e6] Investigator round 4, calling tools:
+2026-07-08 23:15:09,630 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:09,631 - root - INFO - [Request tool call chatcmpl-tool-93367d47e867a304] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.197)
+2026-07-08 23:15:09,631 - root - INFO - [95m[Executing tool call chatcmpl-tool-93367d47e867a304] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.197)[0m
+2026-07-08 23:15:09,638 - root - INFO - [Tools API] GET /neighboring-cells-pci params={'time': '2024-09-20 22:21:34.197'}
+2026-07-08 23:15:09,638 - root - INFO - [95m[Tool result] {"PCIs": [236, 176, 352]} [0m
+2026-07-08 23:15:09,638 - root - INFO - 
+[Scenario: ac53a506-f1dd-404f-bb93-1ffb337ce0e6] Investigator round 5, calling tools:
+2026-07-08 23:15:10,719 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:10,719 - root - INFO - [Request tool call chatcmpl-tool-bdb8029cf15a1015] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.197)
+2026-07-08 23:15:10,719 - root - INFO - [95m[Executing tool call chatcmpl-tool-bdb8029cf15a1015] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.197)[0m
+2026-07-08 23:15:10,725 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:34.197'}
+2026-07-08 23:15:10,726 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -84.73} [0m
+2026-07-08 23:15:10,726 - root - INFO - 
+[Scenario: ac53a506-f1dd-404f-bb93-1ffb337ce0e6] Investigator round 6, calling tools:
+2026-07-08 23:15:11,764 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:11,765 - root - INFO - [Request tool call chatcmpl-tool-ab374e0c85a0aae0] function get_serving_cell_sinr(time=2024-09-20 22:21:34.197)
+2026-07-08 23:15:11,765 - root - INFO - [95m[Executing tool call chatcmpl-tool-ab374e0c85a0aae0] function get_serving_cell_sinr(time=2024-09-20 22:21:34.197)[0m
+2026-07-08 23:15:11,772 - root - INFO - [Tools API] GET /serving-cell-sinr params={'time': '2024-09-20 22:21:34.197'}
+2026-07-08 23:15:11,772 - root - INFO - [95m[Tool result] {"SS-SINR (dB)": -2.82} [0m
+2026-07-08 23:15:11,772 - root - INFO - 
+[Scenario: ac53a506-f1dd-404f-bb93-1ffb337ce0e6] Investigator round 7, calling tools:
+2026-07-08 23:15:13,183 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:13,184 - root - INFO - [Request tool call chatcmpl-tool-ab638eaf862dc9b0] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.197, pci=236)
+2026-07-08 23:15:13,185 - root - INFO - [95m[Executing tool call chatcmpl-tool-ab638eaf862dc9b0] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.197, pci=236)[0m
+2026-07-08 23:15:13,212 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.197', 'pci': 236}
+2026-07-08 23:15:13,213 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -79.0} [0m
+2026-07-08 23:15:13,214 - root - INFO - 
+[Scenario: ac53a506-f1dd-404f-bb93-1ffb337ce0e6] Investigator round 8, calling tools:
+2026-07-08 23:15:14,593 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:14,594 - root - INFO - [Request tool call chatcmpl-tool-9337cf5da7ced6be] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.197, pci=176)
+2026-07-08 23:15:14,594 - root - INFO - [95m[Executing tool call chatcmpl-tool-9337cf5da7ced6be] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.197, pci=176)[0m
+2026-07-08 23:15:14,601 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.197', 'pci': 176}
+2026-07-08 23:15:14,602 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -86.0} [0m
+2026-07-08 23:15:14,602 - root - INFO - 
+[Scenario: ac53a506-f1dd-404f-bb93-1ffb337ce0e6] Investigator round 9, calling tools:
+2026-07-08 23:15:15,850 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:15,852 - root - INFO - [Request tool call chatcmpl-tool-8aa997f00b483d54] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.197, pci=352)
+2026-07-08 23:15:15,852 - root - INFO - [95m[Executing tool call chatcmpl-tool-8aa997f00b483d54] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.197, pci=352)[0m
+2026-07-08 23:15:15,861 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.197', 'pci': 352}
+2026-07-08 23:15:15,861 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -87.0} [0m
+2026-07-08 23:15:15,861 - root - INFO - 
+[Scenario: ac53a506-f1dd-404f-bb93-1ffb337ce0e6] Investigator round 10, calling tools:
+2026-07-08 23:15:16,305 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:16,307 - root - INFO - [Request tool call chatcmpl-tool-a68d12e104322f4b] function get_cell_info(pci=236)
+2026-07-08 23:15:16,308 - root - INFO - [95m[Executing tool call chatcmpl-tool-a68d12e104322f4b] function get_cell_info(pci=236)[0m
+2026-07-08 23:15:16,326 - root - INFO - [Tools API] GET /cell-info params={'pci': 236}
+2026-07-08 23:15:16,326 - root - INFO - [95m[Tool result] {"gNodeB ID": 3211229, "Cell ID": 4, "Longitude": 121.4657129346, "Latitude": 31.1547560133, "Mechanical Azimuth": 98, "Mechanical Downtilt": 13, "Digital Tilt": 3, "Height": 49.4, "Duplex Mode": "TDD", "PCI": 236, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 18, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 6, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3254533_504990_176,3213863_504990_156,3278143_504990_352]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:15:16,326 - root - INFO - 
+[Scenario: ac53a506-f1dd-404f-bb93-1ffb337ce0e6] Investigator forcing structured evidence report:
+2026-07-08 23:15:28,118 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:28,421 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:28,421 - root - INFO - [31;1m[Agent response] \boxed{C16}[0m
+
+2026-07-08 23:15:28,421 - root - INFO - [95m
+[Scenario: ac53a506-f1dd-404f-bb93-1ffb337ce0e6] Agent's answer is C16, ground truth is C16[0m.
+2026-07-08 23:15:28,421 - root - INFO - [Scenario 39bb305f-5d41-4b58-8e88-c69023dc7ebc] attempt 1/1
+2026-07-08 23:15:28,423 - root - INFO - [Tools API] GET /tools params={}
+2026-07-08 23:15:28,423 - root - INFO - 
+[Scenario: 39bb305f-5d41-4b58-8e88-c69023dc7ebc] Investigator round 1, calling tools:
+2026-07-08 23:15:28,926 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:28,926 - root - INFO - [Request tool call chatcmpl-tool-a503930f4e8a8f4d] function get_throughput_logs()
+2026-07-08 23:15:28,926 - root - INFO - [95m[Executing tool call chatcmpl-tool-a503930f4e8a8f4d] function get_throughput_logs()[0m
+2026-07-08 23:15:28,930 - root - INFO - [Tools API] GET /throughput-logs params={}
+2026-07-08 23:15:28,930 - root - INFO - [95m[Tool result] {"Logs": "Timestamp|5G KPI PCell Layer2 MAC DL Throughput [Mbps]\n2024-09-20 22:21:31.495|310.1\n2024-09-20 22:21:32.415|340.22\n2024-09-20 22:21:33.938|462.63\n2024-09-20 22:21:34.792|98.39\n2024-09-20 22:21:35.599|60.37\n2024-09-20 22:21:36.497|64.86\n2024-09-20 22:21:37.793|87.0\n2024-09-20 22:21:38.476|60.28\n2024-09-20 22:21:39.930|90.32\n2024-09-20 22:21:40.641|357.3\n2024-09-20 22:21:41.682|301.1\n2024-09-20 22:21:42.552|501.94\n"} [0m
+2026-07-08 23:15:28,930 - root - INFO - 
+[Scenario: 39bb305f-5d41-4b58-8e88-c69023dc7ebc] Investigator round 2, calling tools:
+2026-07-08 23:15:29,741 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:29,742 - root - INFO - [Request tool call chatcmpl-tool-848c8e5fd854d8b5] function get_serving_cell_pci(time=2024-09-20 22:21:34.792)
+2026-07-08 23:15:29,742 - root - INFO - [95m[Executing tool call chatcmpl-tool-848c8e5fd854d8b5] function get_serving_cell_pci(time=2024-09-20 22:21:34.792)[0m
+2026-07-08 23:15:29,746 - root - INFO - [Tools API] GET /serving-cell-pci params={'time': '2024-09-20 22:21:34.792'}
+2026-07-08 23:15:29,746 - root - INFO - [95m[Tool result] {"PCI": 588} [0m
+2026-07-08 23:15:29,746 - root - INFO - 
+[Scenario: 39bb305f-5d41-4b58-8e88-c69023dc7ebc] Investigator round 3, calling tools:
+2026-07-08 23:15:30,498 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:30,499 - root - INFO - [Request tool call chatcmpl-tool-a9b7824d0d6414f0] function get_cell_info(pci=588)
+2026-07-08 23:15:30,499 - root - INFO - [95m[Executing tool call chatcmpl-tool-a9b7824d0d6414f0] function get_cell_info(pci=588)[0m
+2026-07-08 23:15:30,505 - root - INFO - [Tools API] GET /cell-info params={'pci': 588}
+2026-07-08 23:15:30,506 - root - INFO - [95m[Tool result] {"gNodeB ID": 3244278, "Cell ID": 4, "Longitude": 121.4750467151, "Latitude": 31.1509168782, "Mechanical Azimuth": 272, "Mechanical Downtilt": 10, "Digital Tilt": 6, "Height": 25.7, "Duplex Mode": "TDD", "PCI": 588, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 21, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 6, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3238149_504990_513,3226772_504990_220,3213061_504990_686]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:15:30,506 - root - INFO - 
+[Scenario: 39bb305f-5d41-4b58-8e88-c69023dc7ebc] Investigator round 4, calling tools:
+2026-07-08 23:15:31,412 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:31,413 - root - INFO - [Request tool call chatcmpl-tool-8cc6dc09f791b074] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.792)
+2026-07-08 23:15:31,413 - root - INFO - [95m[Executing tool call chatcmpl-tool-8cc6dc09f791b074] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.792)[0m
+2026-07-08 23:15:31,417 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:34.792'}
+2026-07-08 23:15:31,417 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -87.09} [0m
+2026-07-08 23:15:31,417 - root - INFO - 
+[Scenario: 39bb305f-5d41-4b58-8e88-c69023dc7ebc] Investigator round 5, calling tools:
+2026-07-08 23:15:32,299 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:32,405 - root - INFO - [Request tool call chatcmpl-tool-b743b1fe38686e1d] function get_serving_cell_sinr(time=2024-09-20 22:21:34.792)
+2026-07-08 23:15:32,405 - root - INFO - [95m[Executing tool call chatcmpl-tool-b743b1fe38686e1d] function get_serving_cell_sinr(time=2024-09-20 22:21:34.792)[0m
+2026-07-08 23:15:32,409 - root - INFO - [Tools API] GET /serving-cell-sinr params={'time': '2024-09-20 22:21:34.792'}
+2026-07-08 23:15:32,409 - root - INFO - [95m[Tool result] {"SS-SINR (dB)": 17.91} [0m
+2026-07-08 23:15:32,409 - root - INFO - 
+[Scenario: 39bb305f-5d41-4b58-8e88-c69023dc7ebc] Investigator round 6, calling tools:
+2026-07-08 23:15:33,348 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:33,349 - root - INFO - [Request tool call chatcmpl-tool-9c8e2edb5b6aa964] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.792)
+2026-07-08 23:15:33,349 - root - INFO - [95m[Executing tool call chatcmpl-tool-9c8e2edb5b6aa964] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.792)[0m
+2026-07-08 23:15:33,354 - root - INFO - [Tools API] GET /neighboring-cells-pci params={'time': '2024-09-20 22:21:34.792'}
+2026-07-08 23:15:33,355 - root - INFO - [95m[Tool result] {"PCIs": [513, 686, 220]} [0m
+2026-07-08 23:15:33,355 - root - INFO - 
+[Scenario: 39bb305f-5d41-4b58-8e88-c69023dc7ebc] Investigator round 7, calling tools:
+2026-07-08 23:15:34,655 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:34,657 - root - INFO - [Request tool call chatcmpl-tool-831f69bc6e777a7f] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.792, pci=513)
+2026-07-08 23:15:34,657 - root - INFO - [95m[Executing tool call chatcmpl-tool-831f69bc6e777a7f] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.792, pci=513)[0m
+2026-07-08 23:15:34,667 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.792', 'pci': 513}
+2026-07-08 23:15:34,667 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -92.0} [0m
+2026-07-08 23:15:34,667 - root - INFO - 
+[Scenario: 39bb305f-5d41-4b58-8e88-c69023dc7ebc] Investigator round 8, calling tools:
+2026-07-08 23:15:35,217 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:35,218 - root - INFO - [Request tool call chatcmpl-tool-a7b0356447a6df7a] function get_cell_info(pci=513)
+2026-07-08 23:15:35,218 - root - INFO - [95m[Executing tool call chatcmpl-tool-a7b0356447a6df7a] function get_cell_info(pci=513)[0m
+2026-07-08 23:15:35,221 - root - INFO - [Tools API] GET /cell-info params={'pci': 513}
+2026-07-08 23:15:35,221 - root - INFO - [95m[Tool result] {"gNodeB ID": 3238149, "Cell ID": 1, "Longitude": 121.4676886788, "Latitude": 31.1490564775, "Mechanical Azimuth": 347, "Mechanical Downtilt": 4, "Digital Tilt": 12, "Height": 28.5, "Duplex Mode": "TDD", "PCI": 513, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 16, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 6, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3226772_504990_220,3213061_504990_686,3244278_504990_588]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:15:35,221 - root - INFO - 
+[Scenario: 39bb305f-5d41-4b58-8e88-c69023dc7ebc] Investigator round 9, calling tools:
+2026-07-08 23:15:36,056 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:36,057 - root - INFO - [Request tool call chatcmpl-tool-89ecf969a3a14b2e] function get_serving_cell_rsrp(time=2024-09-20 22:21:32.415)
+2026-07-08 23:15:36,057 - root - INFO - [95m[Executing tool call chatcmpl-tool-89ecf969a3a14b2e] function get_serving_cell_rsrp(time=2024-09-20 22:21:32.415)[0m
+2026-07-08 23:15:36,065 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:32.415'}
+2026-07-08 23:15:36,066 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -87.79} [0m
+2026-07-08 23:15:36,066 - root - INFO - 
+[Scenario: 39bb305f-5d41-4b58-8e88-c69023dc7ebc] Investigator round 10, calling tools:
+2026-07-08 23:15:37,137 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:37,141 - root - INFO - [Request tool call chatcmpl-tool-88fa9cf3de0410e1] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.792)
+2026-07-08 23:15:37,141 - root - INFO - [95m[Executing tool call chatcmpl-tool-88fa9cf3de0410e1] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.792)[0m
+2026-07-08 23:15:37,159 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:34.792'}
+2026-07-08 23:15:37,159 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -87.09} [0m
+2026-07-08 23:15:37,159 - root - INFO - 
+[Scenario: 39bb305f-5d41-4b58-8e88-c69023dc7ebc] Investigator forcing structured evidence report:
+2026-07-08 23:15:49,333 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:49,706 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:49,707 - root - INFO - [31;1m[Agent response] \boxed{C2}[0m
+
+2026-07-08 23:15:49,707 - root - INFO - [95m
+[Scenario: 39bb305f-5d41-4b58-8e88-c69023dc7ebc] Agent's answer is C2, ground truth is C10[0m.
+2026-07-08 23:15:49,707 - root - INFO - [Scenario 0ec53773-5b55-4777-b506-aab4bd9d53fc] attempt 1/1
+2026-07-08 23:15:49,711 - root - INFO - [Tools API] GET /tools params={}
+2026-07-08 23:15:49,711 - root - INFO - 
+[Scenario: 0ec53773-5b55-4777-b506-aab4bd9d53fc] Investigator round 1, calling tools:
+2026-07-08 23:15:50,622 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:50,623 - root - INFO - [Request tool call chatcmpl-tool-a13decb89c22666b] function get_throughput_logs()
+2026-07-08 23:15:50,623 - root - INFO - [95m[Executing tool call chatcmpl-tool-a13decb89c22666b] function get_throughput_logs()[0m
+2026-07-08 23:15:50,627 - root - INFO - [Tools API] GET /throughput-logs params={}
+2026-07-08 23:15:50,627 - root - INFO - [95m[Tool result] {"Logs": "Timestamp|5G KPI PCell Layer2 MAC DL Throughput [Mbps]\n2024-09-20 22:21:31.688|567.43\n2024-09-20 22:21:32.120|494.36\n2024-09-20 22:21:33.882|327.99\n2024-09-20 22:21:34.110|71.25\n2024-09-20 22:21:35.289|68.04\n2024-09-20 22:21:36.907|94.86\n2024-09-20 22:21:37.876|89.72\n2024-09-20 22:21:38.395|68.74\n2024-09-20 22:21:39.460|92.5\n2024-09-20 22:21:40.304|302.79\n2024-09-20 22:21:41.518|587.92\n2024-09-20 22:21:42.616|600.65\n"} [0m
+2026-07-08 23:15:50,627 - root - INFO - 
+[Scenario: 0ec53773-5b55-4777-b506-aab4bd9d53fc] Investigator round 2, calling tools:
+2026-07-08 23:15:51,572 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:51,573 - root - INFO - [Request tool call chatcmpl-tool-887a8bdef5baef4c] function get_serving_cell_pci(time=2024-09-20 22:21:34.110)
+2026-07-08 23:15:51,573 - root - INFO - [95m[Executing tool call chatcmpl-tool-887a8bdef5baef4c] function get_serving_cell_pci(time=2024-09-20 22:21:34.110)[0m
+2026-07-08 23:15:51,578 - root - INFO - [Tools API] GET /serving-cell-pci params={'time': '2024-09-20 22:21:34.110'}
+2026-07-08 23:15:51,578 - root - INFO - [95m[Tool result] {"PCI": 840} [0m
+2026-07-08 23:15:51,578 - root - INFO - 
+[Scenario: 0ec53773-5b55-4777-b506-aab4bd9d53fc] Investigator round 3, calling tools:
+2026-07-08 23:15:52,042 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:52,044 - root - INFO - [Request tool call chatcmpl-tool-9984d6fdc2c922ec] function get_cell_info(pci=840)
+2026-07-08 23:15:52,044 - root - INFO - [95m[Executing tool call chatcmpl-tool-9984d6fdc2c922ec] function get_cell_info(pci=840)[0m
+2026-07-08 23:15:52,052 - root - INFO - [Tools API] GET /cell-info params={'pci': 840}
+2026-07-08 23:15:52,052 - root - INFO - [95m[Tool result] {"gNodeB ID": 3230652, "Cell ID": 1, "Longitude": 121.4699842769, "Latitude": 31.1485260462, "Mechanical Azimuth": 186, "Mechanical Downtilt": 1, "Digital Tilt": 9, "Height": 28.5, "Duplex Mode": "TDD", "PCI": 840, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 21, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 6, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3255225_504990_488,3277550_504990_549,3240495_504990_127]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:15:52,052 - root - INFO - 
+[Scenario: 0ec53773-5b55-4777-b506-aab4bd9d53fc] Investigator round 4, calling tools:
+2026-07-08 23:15:53,051 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:53,053 - root - INFO - [Request tool call chatcmpl-tool-9b350cfc479a91ab] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.110)
+2026-07-08 23:15:53,053 - root - INFO - [95m[Executing tool call chatcmpl-tool-9b350cfc479a91ab] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.110)[0m
+2026-07-08 23:15:53,062 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:34.110'}
+2026-07-08 23:15:53,062 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -90.37} [0m
+2026-07-08 23:15:53,062 - root - INFO - 
+[Scenario: 0ec53773-5b55-4777-b506-aab4bd9d53fc] Investigator round 5, calling tools:
+2026-07-08 23:15:53,923 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:53,925 - root - INFO - [Request tool call chatcmpl-tool-884e7124125465d2] function get_serving_cell_sinr(time=2024-09-20 22:21:34.110)
+2026-07-08 23:15:53,925 - root - INFO - [95m[Executing tool call chatcmpl-tool-884e7124125465d2] function get_serving_cell_sinr(time=2024-09-20 22:21:34.110)[0m
+2026-07-08 23:15:53,934 - root - INFO - [Tools API] GET /serving-cell-sinr params={'time': '2024-09-20 22:21:34.110'}
+2026-07-08 23:15:53,934 - root - INFO - [95m[Tool result] {"SS-SINR (dB)": 17.93} [0m
+2026-07-08 23:15:53,934 - root - INFO - 
+[Scenario: 0ec53773-5b55-4777-b506-aab4bd9d53fc] Investigator round 6, calling tools:
+2026-07-08 23:15:54,766 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:54,767 - root - INFO - [Request tool call chatcmpl-tool-94d88a01d1188bbd] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.110)
+2026-07-08 23:15:54,767 - root - INFO - [95m[Executing tool call chatcmpl-tool-94d88a01d1188bbd] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.110)[0m
+2026-07-08 23:15:54,771 - root - INFO - [Tools API] GET /neighboring-cells-pci params={'time': '2024-09-20 22:21:34.110'}
+2026-07-08 23:15:54,771 - root - INFO - [95m[Tool result] {"PCIs": [127, 488, 549]} [0m
+2026-07-08 23:15:54,771 - root - INFO - 
+[Scenario: 0ec53773-5b55-4777-b506-aab4bd9d53fc] Investigator round 7, calling tools:
+2026-07-08 23:15:55,816 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:55,817 - root - INFO - [Request tool call chatcmpl-tool-bcc317ef3fe5be82] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.110, pci=127)
+2026-07-08 23:15:55,817 - root - INFO - [95m[Executing tool call chatcmpl-tool-bcc317ef3fe5be82] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.110, pci=127)[0m
+2026-07-08 23:15:55,822 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.110', 'pci': 127}
+2026-07-08 23:15:55,823 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -95.0} [0m
+2026-07-08 23:15:55,823 - root - INFO - 
+[Scenario: 0ec53773-5b55-4777-b506-aab4bd9d53fc] Investigator round 8, calling tools:
+2026-07-08 23:15:56,922 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:56,923 - root - INFO - [Request tool call chatcmpl-tool-ab1161b0de63a153] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.110, pci=488)
+2026-07-08 23:15:56,923 - root - INFO - [95m[Executing tool call chatcmpl-tool-ab1161b0de63a153] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.110, pci=488)[0m
+2026-07-08 23:15:56,932 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.110', 'pci': 488}
+2026-07-08 23:15:56,932 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -104.0} [0m
+2026-07-08 23:15:56,932 - root - INFO - 
+[Scenario: 0ec53773-5b55-4777-b506-aab4bd9d53fc] Investigator round 9, calling tools:
+2026-07-08 23:15:59,850 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:15:59,851 - root - INFO - [Request tool call chatcmpl-tool-9806874d89f807d1] function get_cell_info(pci=127)
+2026-07-08 23:15:59,851 - root - INFO - [95m[Executing tool call chatcmpl-tool-9806874d89f807d1] function get_cell_info(pci=127)[0m
+2026-07-08 23:15:59,854 - root - INFO - [Tools API] GET /cell-info params={'pci': 127}
+2026-07-08 23:15:59,854 - root - INFO - [95m[Tool result] {"gNodeB ID": 3240495, "Cell ID": 4, "Longitude": 121.466319609, "Latitude": 31.1547778502, "Mechanical Azimuth": 254, "Mechanical Downtilt": 6, "Digital Tilt": 2, "Height": 23.7, "Duplex Mode": "TDD", "PCI": 127, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 25, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 6, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3230652_504990_840,3255225_504990_488,3277550_504990_549]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:15:59,854 - root - INFO - 
+[Scenario: 0ec53773-5b55-4777-b506-aab4bd9d53fc] Investigator round 10, calling tools:
+2026-07-08 23:16:00,817 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:00,819 - root - INFO - [Request tool call chatcmpl-tool-9f537cf6afd9daf4] function get_user_location(time=2024-09-20 22:21:34.110)
+2026-07-08 23:16:00,819 - root - INFO - [95m[Executing tool call chatcmpl-tool-9f537cf6afd9daf4] function get_user_location(time=2024-09-20 22:21:34.110)[0m
+2026-07-08 23:16:00,823 - root - INFO - [Tools API] GET /user-location params={'time': '2024-09-20 22:21:34.110'}
+2026-07-08 23:16:00,823 - root - INFO - [95m[Tool result] {"Longitude": 121.4656665109, "Latitude": 31.1446334711} [0m
+2026-07-08 23:16:00,823 - root - INFO - 
+[Scenario: 0ec53773-5b55-4777-b506-aab4bd9d53fc] Investigator forcing structured evidence report:
+2026-07-08 23:16:12,448 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:12,988 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:12,995 - root - INFO - [31;1m[Agent response] \boxed{C21}[0m
+
+2026-07-08 23:16:12,995 - root - INFO - [95m
+[Scenario: 0ec53773-5b55-4777-b506-aab4bd9d53fc] Agent's answer is C21, ground truth is C3[0m.
+2026-07-08 23:16:12,995 - root - INFO - [Scenario 01511464-4a9e-4bfd-a019-b56847d3d394] attempt 1/1
+2026-07-08 23:16:12,997 - root - INFO - [Tools API] GET /tools params={}
+2026-07-08 23:16:12,997 - root - INFO - 
+[Scenario: 01511464-4a9e-4bfd-a019-b56847d3d394] Investigator round 1, calling tools:
+2026-07-08 23:16:13,483 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:13,485 - root - INFO - [Request tool call chatcmpl-tool-a8b88a44abd63249] function get_throughput_logs()
+2026-07-08 23:16:13,485 - root - INFO - [95m[Executing tool call chatcmpl-tool-a8b88a44abd63249] function get_throughput_logs()[0m
+2026-07-08 23:16:13,489 - root - INFO - [Tools API] GET /throughput-logs params={}
+2026-07-08 23:16:13,489 - root - INFO - [95m[Tool result] {"Logs": "Timestamp|5G KPI PCell Layer2 MAC DL Throughput [Mbps]\n2024-09-20 22:21:31.876|455.36\n2024-09-20 22:21:32.693|516.32\n2024-09-20 22:21:33.618|603.69\n2024-09-20 22:21:34.866|57.29\n2024-09-20 22:21:35.149|55.28\n2024-09-20 22:21:36.338|67.4\n2024-09-20 22:21:37.491|78.66\n2024-09-20 22:21:38.249|42.77\n2024-09-20 22:21:39.828|228.98\n2024-09-20 22:21:40.973|598.48\n2024-09-20 22:21:41.234|537.9\n2024-09-20 22:21:42.405|345.44\n"} [0m
+2026-07-08 23:16:13,489 - root - INFO - 
+[Scenario: 01511464-4a9e-4bfd-a019-b56847d3d394] Investigator round 2, calling tools:
+2026-07-08 23:16:14,286 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:14,286 - root - INFO - [Request tool call chatcmpl-tool-a2058f8d1adfc2a1] function get_serving_cell_pci(time=2024-09-20 22:21:34.866)
+2026-07-08 23:16:14,286 - root - INFO - [95m[Executing tool call chatcmpl-tool-a2058f8d1adfc2a1] function get_serving_cell_pci(time=2024-09-20 22:21:34.866)[0m
+2026-07-08 23:16:14,291 - root - INFO - [Tools API] GET /serving-cell-pci params={'time': '2024-09-20 22:21:34.866'}
+2026-07-08 23:16:14,291 - root - INFO - [95m[Tool result] {"PCI": 385} [0m
+2026-07-08 23:16:14,291 - root - INFO - 
+[Scenario: 01511464-4a9e-4bfd-a019-b56847d3d394] Investigator round 3, calling tools:
+2026-07-08 23:16:15,215 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:15,217 - root - INFO - [Request tool call chatcmpl-tool-9286bed748877819] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.866)
+2026-07-08 23:16:15,218 - root - INFO - [95m[Executing tool call chatcmpl-tool-9286bed748877819] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.866)[0m
+2026-07-08 23:16:15,233 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:34.866'}
+2026-07-08 23:16:15,233 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -87.21} [0m
+2026-07-08 23:16:15,233 - root - INFO - 
+[Scenario: 01511464-4a9e-4bfd-a019-b56847d3d394] Investigator round 4, calling tools:
+2026-07-08 23:16:16,257 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:16,257 - root - INFO - [Request tool call chatcmpl-tool-80e4d774fe555f04] function get_serving_cell_sinr(time=2024-09-20 22:21:34.866)
+2026-07-08 23:16:16,258 - root - INFO - [95m[Executing tool call chatcmpl-tool-80e4d774fe555f04] function get_serving_cell_sinr(time=2024-09-20 22:21:34.866)[0m
+2026-07-08 23:16:16,261 - root - INFO - [Tools API] GET /serving-cell-sinr params={'time': '2024-09-20 22:21:34.866'}
+2026-07-08 23:16:16,261 - root - INFO - [95m[Tool result] {"SS-SINR (dB)": -2.7} [0m
+2026-07-08 23:16:16,261 - root - INFO - 
+[Scenario: 01511464-4a9e-4bfd-a019-b56847d3d394] Investigator round 5, calling tools:
+2026-07-08 23:16:17,137 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:17,139 - root - INFO - [Request tool call chatcmpl-tool-9e9a5fb73d24905c] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.866)
+2026-07-08 23:16:17,139 - root - INFO - [95m[Executing tool call chatcmpl-tool-9e9a5fb73d24905c] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.866)[0m
+2026-07-08 23:16:17,155 - root - INFO - [Tools API] GET /neighboring-cells-pci params={'time': '2024-09-20 22:21:34.866'}
+2026-07-08 23:16:17,155 - root - INFO - [95m[Tool result] {"PCIs": [821, 477, 470]} [0m
+2026-07-08 23:16:17,156 - root - INFO - 
+[Scenario: 01511464-4a9e-4bfd-a019-b56847d3d394] Investigator round 6, calling tools:
+2026-07-08 23:16:18,327 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:18,327 - root - INFO - [Request tool call chatcmpl-tool-a99b95fda0d8bf50] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.866, pci=821)
+2026-07-08 23:16:18,327 - root - INFO - [95m[Executing tool call chatcmpl-tool-a99b95fda0d8bf50] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.866, pci=821)[0m
+2026-07-08 23:16:18,333 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.866', 'pci': 821}
+2026-07-08 23:16:18,333 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -81.0} [0m
+2026-07-08 23:16:18,333 - root - INFO - 
+[Scenario: 01511464-4a9e-4bfd-a019-b56847d3d394] Investigator round 7, calling tools:
+2026-07-08 23:16:19,474 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:19,475 - root - INFO - [Request tool call chatcmpl-tool-98fdb0e41e194b8c] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.866, pci=477)
+2026-07-08 23:16:19,475 - root - INFO - [95m[Executing tool call chatcmpl-tool-98fdb0e41e194b8c] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.866, pci=477)[0m
+2026-07-08 23:16:19,480 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.866', 'pci': 477}
+2026-07-08 23:16:19,480 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -84.0} [0m
+2026-07-08 23:16:19,480 - root - INFO - 
+[Scenario: 01511464-4a9e-4bfd-a019-b56847d3d394] Investigator round 8, calling tools:
+2026-07-08 23:16:20,524 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:20,525 - root - INFO - [Request tool call chatcmpl-tool-99d082ac499ed666] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.866, pci=470)
+2026-07-08 23:16:20,525 - root - INFO - [95m[Executing tool call chatcmpl-tool-99d082ac499ed666] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.866, pci=470)[0m
+2026-07-08 23:16:20,531 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.866', 'pci': 470}
+2026-07-08 23:16:20,531 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -91.0} [0m
+2026-07-08 23:16:20,531 - root - INFO - 
+[Scenario: 01511464-4a9e-4bfd-a019-b56847d3d394] Investigator round 9, calling tools:
+2026-07-08 23:16:20,990 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:20,991 - root - INFO - [Request tool call chatcmpl-tool-b707eb6e84857609] function get_cell_info(pci=385)
+2026-07-08 23:16:20,991 - root - INFO - [95m[Executing tool call chatcmpl-tool-b707eb6e84857609] function get_cell_info(pci=385)[0m
+2026-07-08 23:16:20,994 - root - INFO - [Tools API] GET /cell-info params={'pci': 385}
+2026-07-08 23:16:20,994 - root - INFO - [95m[Tool result] {"gNodeB ID": 3257709, "Cell ID": 1, "Longitude": 121.4689228291, "Latitude": 31.1459625341, "Mechanical Azimuth": 141, "Mechanical Downtilt": 13, "Digital Tilt": 8, "Height": 15.2, "Duplex Mode": "TDD", "PCI": 385, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 15, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 10, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3262328_504990_821,3274253_504990_477,3234922_504990_470]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:16:20,994 - root - INFO - 
+[Scenario: 01511464-4a9e-4bfd-a019-b56847d3d394] Investigator round 10, calling tools:
+2026-07-08 23:16:21,612 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:21,614 - root - INFO - [Request tool call chatcmpl-tool-955550a0c614c2ac] function get_cell_info(pci=821)
+2026-07-08 23:16:21,614 - root - INFO - [95m[Executing tool call chatcmpl-tool-955550a0c614c2ac] function get_cell_info(pci=821)[0m
+2026-07-08 23:16:21,622 - root - INFO - [Tools API] GET /cell-info params={'pci': 821}
+2026-07-08 23:16:21,622 - root - INFO - [95m[Tool result] {"gNodeB ID": 3262328, "Cell ID": 2, "Longitude": 121.4759341241, "Latitude": 31.151327456, "Mechanical Azimuth": 73, "Mechanical Downtilt": 14, "Digital Tilt": 8, "Height": 22.6, "Duplex Mode": "TDD", "PCI": 821, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 11, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 6, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3257709_504990_385,3274253_504990_477,3234922_504990_470]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:16:21,622 - root - INFO - 
+[Scenario: 01511464-4a9e-4bfd-a019-b56847d3d394] Investigator forcing structured evidence report:
+2026-07-08 23:16:30,744 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:31,018 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:31,019 - root - INFO - [31;1m[Agent response] \boxed{C8}[0m
+
+2026-07-08 23:16:31,019 - root - INFO - [95m
+[Scenario: 01511464-4a9e-4bfd-a019-b56847d3d394] Agent's answer is C8, ground truth is C8[0m.
+2026-07-08 23:16:31,019 - root - INFO - [Scenario af48c90d-a335-4864-aef9-792bd80169ff] attempt 1/1
+2026-07-08 23:16:31,023 - root - INFO - [Tools API] GET /tools params={}
+2026-07-08 23:16:31,023 - root - INFO - 
+[Scenario: af48c90d-a335-4864-aef9-792bd80169ff] Investigator round 1, calling tools:
+2026-07-08 23:16:31,470 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:31,471 - root - INFO - [Request tool call chatcmpl-tool-aa73ba72b35fe7ca] function get_throughput_logs()
+2026-07-08 23:16:31,472 - root - INFO - [95m[Executing tool call chatcmpl-tool-aa73ba72b35fe7ca] function get_throughput_logs()[0m
+2026-07-08 23:16:31,484 - root - INFO - [Tools API] GET /throughput-logs params={}
+2026-07-08 23:16:31,485 - root - INFO - [95m[Tool result] {"Logs": "Timestamp|5G KPI PCell Layer2 MAC DL Throughput [Mbps]\n2024-09-20 22:21:31.150|511.51\n2024-09-20 22:21:32.647|335.22\n2024-09-20 22:21:33.267|379.44\n2024-09-20 22:21:34.258|74.85\n2024-09-20 22:21:35.455|74.35\n2024-09-20 22:21:36.946|79.55\n2024-09-20 22:21:37.654|56.02\n2024-09-20 22:21:38.936|88.44\n2024-09-20 22:21:39.221|80.84\n2024-09-20 22:21:40.718|482.37\n2024-09-20 22:21:41.246|442.23\n2024-09-20 22:21:42.692|416.41\n"} [0m
+2026-07-08 23:16:31,486 - root - INFO - 
+[Scenario: af48c90d-a335-4864-aef9-792bd80169ff] Investigator round 2, calling tools:
+2026-07-08 23:16:32,275 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:32,276 - root - INFO - [Request tool call chatcmpl-tool-bd3306bd06b44f03] function get_serving_cell_pci(time=2024-09-20 22:21:34.258)
+2026-07-08 23:16:32,276 - root - INFO - [95m[Executing tool call chatcmpl-tool-bd3306bd06b44f03] function get_serving_cell_pci(time=2024-09-20 22:21:34.258)[0m
+2026-07-08 23:16:32,284 - root - INFO - [Tools API] GET /serving-cell-pci params={'time': '2024-09-20 22:21:34.258'}
+2026-07-08 23:16:32,284 - root - INFO - [95m[Tool result] {"PCI": 809} [0m
+2026-07-08 23:16:32,284 - root - INFO - 
+[Scenario: af48c90d-a335-4864-aef9-792bd80169ff] Investigator round 3, calling tools:
+2026-07-08 23:16:32,812 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:32,812 - root - INFO - [Request tool call chatcmpl-tool-a0d142babd28a231] function get_cell_info(pci=809)
+2026-07-08 23:16:32,813 - root - INFO - [95m[Executing tool call chatcmpl-tool-a0d142babd28a231] function get_cell_info(pci=809)[0m
+2026-07-08 23:16:32,816 - root - INFO - [Tools API] GET /cell-info params={'pci': 809}
+2026-07-08 23:16:32,816 - root - INFO - [95m[Tool result] {"gNodeB ID": 3240491, "Cell ID": 1, "Longitude": 121.4733087853, "Latitude": 31.1519988417, "Mechanical Azimuth": 242, "Mechanical Downtilt": 7, "Digital Tilt": 12, "Height": 29.0, "Duplex Mode": "TDD", "PCI": 809, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 22, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 6, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3279919_504990_67,3276319_504990_108,3220184_504990_201]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:16:32,816 - root - INFO - 
+[Scenario: af48c90d-a335-4864-aef9-792bd80169ff] Investigator round 4, calling tools:
+2026-07-08 23:16:33,559 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:33,560 - root - INFO - [Request tool call chatcmpl-tool-93d40401c3f4ac69] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.258)
+2026-07-08 23:16:33,560 - root - INFO - [95m[Executing tool call chatcmpl-tool-93d40401c3f4ac69] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.258)[0m
+2026-07-08 23:16:33,564 - root - INFO - [Tools API] GET /neighboring-cells-pci params={'time': '2024-09-20 22:21:34.258'}
+2026-07-08 23:16:33,565 - root - INFO - [95m[Tool result] {"PCIs": [67, 108, 201]} [0m
+2026-07-08 23:16:33,565 - root - INFO - 
+[Scenario: af48c90d-a335-4864-aef9-792bd80169ff] Investigator round 5, calling tools:
+2026-07-08 23:16:34,503 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:34,503 - root - INFO - [Request tool call chatcmpl-tool-8d1393b5fc5bf2b9] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.258, pci=67)
+2026-07-08 23:16:34,503 - root - INFO - [95m[Executing tool call chatcmpl-tool-8d1393b5fc5bf2b9] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.258, pci=67)[0m
+2026-07-08 23:16:34,509 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.258', 'pci': 67}
+2026-07-08 23:16:34,509 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -94.0} [0m
+2026-07-08 23:16:34,509 - root - INFO - 
+[Scenario: af48c90d-a335-4864-aef9-792bd80169ff] Investigator round 6, calling tools:
+2026-07-08 23:16:35,307 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:35,307 - root - INFO - [Request tool call chatcmpl-tool-83414f7162e9b632] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.258, pci=108)
+2026-07-08 23:16:35,307 - root - INFO - [95m[Executing tool call chatcmpl-tool-83414f7162e9b632] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.258, pci=108)[0m
+2026-07-08 23:16:35,312 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.258', 'pci': 108}
+2026-07-08 23:16:35,312 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -96.0} [0m
+2026-07-08 23:16:35,312 - root - INFO - 
+[Scenario: af48c90d-a335-4864-aef9-792bd80169ff] Investigator round 7, calling tools:
+2026-07-08 23:16:36,193 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:36,194 - root - INFO - [Request tool call chatcmpl-tool-bed389f0aed14b32] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.258, pci=201)
+2026-07-08 23:16:36,194 - root - INFO - [95m[Executing tool call chatcmpl-tool-bed389f0aed14b32] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.258, pci=201)[0m
+2026-07-08 23:16:36,199 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.258', 'pci': 201}
+2026-07-08 23:16:36,199 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -108.0} [0m
+2026-07-08 23:16:36,199 - root - INFO - 
+[Scenario: af48c90d-a335-4864-aef9-792bd80169ff] Investigator round 8, calling tools:
+2026-07-08 23:16:37,111 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:37,112 - root - INFO - [Request tool call chatcmpl-tool-beb7f8f53014bc24] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.258)
+2026-07-08 23:16:37,112 - root - INFO - [95m[Executing tool call chatcmpl-tool-beb7f8f53014bc24] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.258)[0m
+2026-07-08 23:16:37,116 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:34.258'}
+2026-07-08 23:16:37,116 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -88.18} [0m
+2026-07-08 23:16:37,117 - root - INFO - 
+[Scenario: af48c90d-a335-4864-aef9-792bd80169ff] Investigator round 9, calling tools:
+2026-07-08 23:16:38,240 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:38,242 - root - INFO - [Request tool call chatcmpl-tool-9d5438ce9c272a47] function get_serving_cell_sinr(time=2024-09-20 22:21:34.258)
+2026-07-08 23:16:38,242 - root - INFO - [95m[Executing tool call chatcmpl-tool-9d5438ce9c272a47] function get_serving_cell_sinr(time=2024-09-20 22:21:34.258)[0m
+2026-07-08 23:16:38,259 - root - INFO - [Tools API] GET /serving-cell-sinr params={'time': '2024-09-20 22:21:34.258'}
+2026-07-08 23:16:38,259 - root - INFO - [95m[Tool result] {"SS-SINR (dB)": 16.96} [0m
+2026-07-08 23:16:38,259 - root - INFO - 
+[Scenario: af48c90d-a335-4864-aef9-792bd80169ff] Investigator round 10, calling tools:
+2026-07-08 23:16:39,003 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:39,005 - root - INFO - [Request tool call chatcmpl-tool-9767a025839bd969] function get_rbs_allocated_to_user(time=2024-09-20 22:21:34.258)
+2026-07-08 23:16:39,006 - root - INFO - [95m[Executing tool call chatcmpl-tool-9767a025839bd969] function get_rbs_allocated_to_user(time=2024-09-20 22:21:34.258)[0m
+2026-07-08 23:16:39,010 - root - INFO - [Tools API] GET /rbs-allocated-to-user params={'time': '2024-09-20 22:21:34.258'}
+2026-07-08 23:16:39,010 - root - INFO - [95m[Tool result] {"RBs": 49.0} [0m
+2026-07-08 23:16:39,010 - root - INFO - 
+[Scenario: af48c90d-a335-4864-aef9-792bd80169ff] Investigator forcing structured evidence report:
+2026-07-08 23:16:50,603 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:50,853 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:50,854 - root - INFO - [31;1m[Agent response] \boxed{C20}[0m
+
+2026-07-08 23:16:50,854 - root - INFO - [95m
+[Scenario: af48c90d-a335-4864-aef9-792bd80169ff] Agent's answer is C20, ground truth is C9[0m.
+2026-07-08 23:16:50,855 - root - INFO - [Scenario a60de966-4009-4609-b1e3-4c40e6a61366] attempt 1/1
+2026-07-08 23:16:50,861 - root - INFO - [Tools API] GET /tools params={}
+2026-07-08 23:16:50,862 - root - INFO - 
+[Scenario: a60de966-4009-4609-b1e3-4c40e6a61366] Investigator round 1, calling tools:
+2026-07-08 23:16:51,449 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:51,450 - root - INFO - [Request tool call chatcmpl-tool-94cd15bae1638add] function get_throughput_logs()
+2026-07-08 23:16:51,450 - root - INFO - [95m[Executing tool call chatcmpl-tool-94cd15bae1638add] function get_throughput_logs()[0m
+2026-07-08 23:16:51,454 - root - INFO - [Tools API] GET /throughput-logs params={}
+2026-07-08 23:16:51,454 - root - INFO - [95m[Tool result] {"Logs": "Timestamp|5G KPI PCell Layer2 MAC DL Throughput [Mbps]\n2024-09-20 22:21:31.449|319.11\n2024-09-20 22:21:32.457|435.01\n2024-09-20 22:21:33.333|551.84\n2024-09-20 22:21:34.447|80.92\n2024-09-20 22:21:35.181|84.37\n2024-09-20 22:21:36.877|98.91\n2024-09-20 22:21:37.813|84.29\n2024-09-20 22:21:38.869|84.21\n2024-09-20 22:21:39.553|100.98\n2024-09-20 22:21:40.896|446.74\n2024-09-20 22:21:41.329|322.14\n2024-09-20 22:21:42.946|575.93\n"} [0m
+2026-07-08 23:16:51,454 - root - INFO - 
+[Scenario: a60de966-4009-4609-b1e3-4c40e6a61366] Investigator round 2, calling tools:
+2026-07-08 23:16:52,296 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:52,296 - root - INFO - [Request tool call chatcmpl-tool-acf3915337525a35] function get_serving_cell_pci(time=2024-09-20 22:21:34.447)
+2026-07-08 23:16:52,297 - root - INFO - [95m[Executing tool call chatcmpl-tool-acf3915337525a35] function get_serving_cell_pci(time=2024-09-20 22:21:34.447)[0m
+2026-07-08 23:16:52,304 - root - INFO - [Tools API] GET /serving-cell-pci params={'time': '2024-09-20 22:21:34.447'}
+2026-07-08 23:16:52,304 - root - INFO - [95m[Tool result] {"PCI": 736} [0m
+2026-07-08 23:16:52,304 - root - INFO - 
+[Scenario: a60de966-4009-4609-b1e3-4c40e6a61366] Investigator round 3, calling tools:
+2026-07-08 23:16:53,294 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:53,296 - root - INFO - [Request tool call chatcmpl-tool-846ac5ec6bdaa52f] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.447)
+2026-07-08 23:16:53,296 - root - INFO - [95m[Executing tool call chatcmpl-tool-846ac5ec6bdaa52f] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.447)[0m
+2026-07-08 23:16:53,310 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:34.447'}
+2026-07-08 23:16:53,310 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -86.43} [0m
+2026-07-08 23:16:53,310 - root - INFO - 
+[Scenario: a60de966-4009-4609-b1e3-4c40e6a61366] Investigator round 4, calling tools:
+2026-07-08 23:16:54,125 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:54,125 - root - INFO - [Request tool call chatcmpl-tool-ae898379bc36b194] function get_serving_cell_sinr(time=2024-09-20 22:21:34.447)
+2026-07-08 23:16:54,125 - root - INFO - [95m[Executing tool call chatcmpl-tool-ae898379bc36b194] function get_serving_cell_sinr(time=2024-09-20 22:21:34.447)[0m
+2026-07-08 23:16:54,132 - root - INFO - [Tools API] GET /serving-cell-sinr params={'time': '2024-09-20 22:21:34.447'}
+2026-07-08 23:16:54,132 - root - INFO - [95m[Tool result] {"SS-SINR (dB)": 15.52} [0m
+2026-07-08 23:16:54,132 - root - INFO - 
+[Scenario: a60de966-4009-4609-b1e3-4c40e6a61366] Investigator round 5, calling tools:
+2026-07-08 23:16:55,093 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:55,094 - root - INFO - [Request tool call chatcmpl-tool-a1e82269732c1800] function get_user_location(time=2024-09-20 22:21:34.447)
+2026-07-08 23:16:55,094 - root - INFO - [95m[Executing tool call chatcmpl-tool-a1e82269732c1800] function get_user_location(time=2024-09-20 22:21:34.447)[0m
+2026-07-08 23:16:55,100 - root - INFO - [Tools API] GET /user-location params={'time': '2024-09-20 22:21:34.447'}
+2026-07-08 23:16:55,100 - root - INFO - [95m[Tool result] {"Longitude": 121.4656655152, "Latitude": 31.1446247999} [0m
+2026-07-08 23:16:55,100 - root - INFO - 
+[Scenario: a60de966-4009-4609-b1e3-4c40e6a61366] Investigator round 6, calling tools:
+2026-07-08 23:16:55,687 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:55,689 - root - INFO - [Request tool call chatcmpl-tool-acb3c4acd67c9d33] function get_gnodeb_location(pci=736)
+2026-07-08 23:16:55,690 - root - INFO - [95m[Executing tool call chatcmpl-tool-acb3c4acd67c9d33] function get_gnodeb_location(pci=736)[0m
+2026-07-08 23:16:55,703 - root - INFO - [Tools API] GET /gnodeb-location params={'pci': 736}
+2026-07-08 23:16:55,704 - root - INFO - [95m[Tool result] {"Longitude": 121.4645416307, "Latitude": 31.1477611968} [0m
+2026-07-08 23:16:55,704 - root - INFO - 
+[Scenario: a60de966-4009-4609-b1e3-4c40e6a61366] Investigator round 7, calling tools:
+2026-07-08 23:16:56,438 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:56,439 - root - INFO - [Request tool call chatcmpl-tool-a4ff51156dc0f9d1] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.447)
+2026-07-08 23:16:56,439 - root - INFO - [95m[Executing tool call chatcmpl-tool-a4ff51156dc0f9d1] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.447)[0m
+2026-07-08 23:16:56,443 - root - INFO - [Tools API] GET /neighboring-cells-pci params={'time': '2024-09-20 22:21:34.447'}
+2026-07-08 23:16:56,443 - root - INFO - [95m[Tool result] {"PCIs": [847, 185, 947]} [0m
+2026-07-08 23:16:56,443 - root - INFO - 
+[Scenario: a60de966-4009-4609-b1e3-4c40e6a61366] Investigator round 8, calling tools:
+2026-07-08 23:16:58,241 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:58,242 - root - INFO - [Request tool call chatcmpl-tool-85f1b3431fe7397c] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.447, pci=847)
+2026-07-08 23:16:58,242 - root - INFO - [95m[Executing tool call chatcmpl-tool-85f1b3431fe7397c] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.447, pci=847)[0m
+2026-07-08 23:16:58,246 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.447', 'pci': 847}
+2026-07-08 23:16:58,246 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -89.0} [0m
+2026-07-08 23:16:58,246 - root - INFO - 
+[Scenario: a60de966-4009-4609-b1e3-4c40e6a61366] Investigator round 9, calling tools:
+2026-07-08 23:16:59,362 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:16:59,363 - root - INFO - [Request tool call chatcmpl-tool-8274e8b39b293635] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.447, pci=185)
+2026-07-08 23:16:59,363 - root - INFO - [95m[Executing tool call chatcmpl-tool-8274e8b39b293635] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.447, pci=185)[0m
+2026-07-08 23:16:59,367 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.447', 'pci': 185}
+2026-07-08 23:16:59,367 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -100.0} [0m
+2026-07-08 23:16:59,367 - root - INFO - 
+[Scenario: a60de966-4009-4609-b1e3-4c40e6a61366] Investigator round 10, calling tools:
+2026-07-08 23:17:00,690 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:00,692 - root - INFO - [Request tool call chatcmpl-tool-979ad536a2a6d8a6] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.447, pci=947)
+2026-07-08 23:17:00,692 - root - INFO - [95m[Executing tool call chatcmpl-tool-979ad536a2a6d8a6] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.447, pci=947)[0m
+2026-07-08 23:17:00,696 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.447', 'pci': 947}
+2026-07-08 23:17:00,697 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -105.0} [0m
+2026-07-08 23:17:00,697 - root - INFO - 
+[Scenario: a60de966-4009-4609-b1e3-4c40e6a61366] Investigator forcing structured evidence report:
+2026-07-08 23:17:11,890 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:12,901 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:12,902 - root - INFO - [31;1m[Agent response] \boxed{C5}[0m
+
+2026-07-08 23:17:12,902 - root - INFO - [95m
+[Scenario: a60de966-4009-4609-b1e3-4c40e6a61366] Agent's answer is C5, ground truth is C10[0m.
+2026-07-08 23:17:12,902 - root - INFO - [Scenario be9c0764-b59e-4020-914c-b0baec18dd8b] attempt 1/1
+2026-07-08 23:17:12,905 - root - INFO - [Tools API] GET /tools params={}
+2026-07-08 23:17:12,905 - root - INFO - 
+[Scenario: be9c0764-b59e-4020-914c-b0baec18dd8b] Investigator round 1, calling tools:
+2026-07-08 23:17:13,466 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:13,467 - root - INFO - [Request tool call chatcmpl-tool-8f92d389b4ebc378] function get_throughput_logs()
+2026-07-08 23:17:13,467 - root - INFO - [95m[Executing tool call chatcmpl-tool-8f92d389b4ebc378] function get_throughput_logs()[0m
+2026-07-08 23:17:13,473 - root - INFO - [Tools API] GET /throughput-logs params={}
+2026-07-08 23:17:13,473 - root - INFO - [95m[Tool result] {"Logs": "Timestamp|5G KPI PCell Layer2 MAC DL Throughput [Mbps]\n2024-09-20 22:21:31.682|387.32\n2024-09-20 22:21:32.404|461.62\n2024-09-20 22:21:33.712|478.9\n2024-09-20 22:21:34.884|76.75\n2024-09-20 22:21:35.360|97.48\n2024-09-20 22:21:36.808|85.12\n2024-09-20 22:21:37.349|61.36\n2024-09-20 22:21:38.678|98.0\n2024-09-20 22:21:39.467|55.25\n2024-09-20 22:21:40.936|459.0\n2024-09-20 22:21:41.567|461.74\n2024-09-20 22:21:42.619|423.2\n"} [0m
+2026-07-08 23:17:13,473 - root - INFO - 
+[Scenario: be9c0764-b59e-4020-914c-b0baec18dd8b] Investigator round 2, calling tools:
+2026-07-08 23:17:14,428 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:14,430 - root - INFO - [Request tool call chatcmpl-tool-8a6df47d4a1f5e1f] function get_serving_cell_pci(time=2024-09-20 22:21:34.884)
+2026-07-08 23:17:14,430 - root - INFO - [95m[Executing tool call chatcmpl-tool-8a6df47d4a1f5e1f] function get_serving_cell_pci(time=2024-09-20 22:21:34.884)[0m
+2026-07-08 23:17:14,444 - root - INFO - [Tools API] GET /serving-cell-pci params={'time': '2024-09-20 22:21:34.884'}
+2026-07-08 23:17:14,444 - root - INFO - [95m[Tool result] {"PCI": 693} [0m
+2026-07-08 23:17:14,444 - root - INFO - 
+[Scenario: be9c0764-b59e-4020-914c-b0baec18dd8b] Investigator round 3, calling tools:
+2026-07-08 23:17:15,616 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:15,617 - root - INFO - [Request tool call chatcmpl-tool-a9b6ebccd33e5fd3] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.884)
+2026-07-08 23:17:15,617 - root - INFO - [95m[Executing tool call chatcmpl-tool-a9b6ebccd33e5fd3] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.884)[0m
+2026-07-08 23:17:15,620 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:34.884'}
+2026-07-08 23:17:15,620 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -88.66} [0m
+2026-07-08 23:17:15,620 - root - INFO - 
+[Scenario: be9c0764-b59e-4020-914c-b0baec18dd8b] Investigator round 4, calling tools:
+2026-07-08 23:17:16,538 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:16,538 - root - INFO - [Request tool call chatcmpl-tool-b1a22bcfc21aab5d] function get_serving_cell_sinr(time=2024-09-20 22:21:34.884)
+2026-07-08 23:17:16,538 - root - INFO - [95m[Executing tool call chatcmpl-tool-b1a22bcfc21aab5d] function get_serving_cell_sinr(time=2024-09-20 22:21:34.884)[0m
+2026-07-08 23:17:16,542 - root - INFO - [Tools API] GET /serving-cell-sinr params={'time': '2024-09-20 22:21:34.884'}
+2026-07-08 23:17:16,542 - root - INFO - [95m[Tool result] {"SS-SINR (dB)": 12.38} [0m
+2026-07-08 23:17:16,542 - root - INFO - 
+[Scenario: be9c0764-b59e-4020-914c-b0baec18dd8b] Investigator round 5, calling tools:
+2026-07-08 23:17:17,358 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:17,358 - root - INFO - [Request tool call chatcmpl-tool-979e740755fdd489] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.884)
+2026-07-08 23:17:17,358 - root - INFO - [95m[Executing tool call chatcmpl-tool-979e740755fdd489] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.884)[0m
+2026-07-08 23:17:17,365 - root - INFO - [Tools API] GET /neighboring-cells-pci params={'time': '2024-09-20 22:21:34.884'}
+2026-07-08 23:17:17,365 - root - INFO - [95m[Tool result] {"PCIs": [608, 841, 631]} [0m
+2026-07-08 23:17:17,365 - root - INFO - 
+[Scenario: be9c0764-b59e-4020-914c-b0baec18dd8b] Investigator round 6, calling tools:
+2026-07-08 23:17:18,335 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:18,336 - root - INFO - [Request tool call chatcmpl-tool-82ce13443e73d7da] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.884, pci=608)
+2026-07-08 23:17:18,336 - root - INFO - [95m[Executing tool call chatcmpl-tool-82ce13443e73d7da] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.884, pci=608)[0m
+2026-07-08 23:17:18,346 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.884', 'pci': 608}
+2026-07-08 23:17:18,346 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -88.0} [0m
+2026-07-08 23:17:18,346 - root - INFO - 
+[Scenario: be9c0764-b59e-4020-914c-b0baec18dd8b] Investigator round 7, calling tools:
+2026-07-08 23:17:19,356 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:19,358 - root - INFO - [Request tool call chatcmpl-tool-971fd01bc651fc70] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.884, pci=841)
+2026-07-08 23:17:19,358 - root - INFO - [95m[Executing tool call chatcmpl-tool-971fd01bc651fc70] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.884, pci=841)[0m
+2026-07-08 23:17:19,364 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.884', 'pci': 841}
+2026-07-08 23:17:19,364 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -96.0} [0m
+2026-07-08 23:17:19,364 - root - INFO - 
+[Scenario: be9c0764-b59e-4020-914c-b0baec18dd8b] Investigator round 8, calling tools:
+2026-07-08 23:17:20,234 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:20,237 - root - INFO - [Request tool call chatcmpl-tool-90fc27776a1bf94b] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.884, pci=631)
+2026-07-08 23:17:20,237 - root - INFO - [95m[Executing tool call chatcmpl-tool-90fc27776a1bf94b] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.884, pci=631)[0m
+2026-07-08 23:17:20,254 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.884', 'pci': 631}
+2026-07-08 23:17:20,254 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -110.0} [0m
+2026-07-08 23:17:20,254 - root - INFO - 
+[Scenario: be9c0764-b59e-4020-914c-b0baec18dd8b] Investigator round 9, calling tools:
+2026-07-08 23:17:20,738 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:20,740 - root - INFO - [Request tool call chatcmpl-tool-98f7071aafcaf13f] function get_cell_info(pci=693)
+2026-07-08 23:17:20,740 - root - INFO - [95m[Executing tool call chatcmpl-tool-98f7071aafcaf13f] function get_cell_info(pci=693)[0m
+2026-07-08 23:17:20,756 - root - INFO - [Tools API] GET /cell-info params={'pci': 693}
+2026-07-08 23:17:20,756 - root - INFO - [95m[Tool result] {"gNodeB ID": 3230193, "Cell ID": 3, "Longitude": 121.4713592684, "Latitude": 31.1497076213, "Mechanical Azimuth": 208, "Mechanical Downtilt": 4, "Digital Tilt": 5, "Height": 15.3, "Duplex Mode": "TDD", "PCI": 693, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 14, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 6, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3247813_504990_608,3239893_504990_841,3232154_504990_631]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:17:20,756 - root - INFO - 
+[Scenario: be9c0764-b59e-4020-914c-b0baec18dd8b] Investigator round 10, calling tools:
+2026-07-08 23:17:21,248 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:21,249 - root - INFO - [Request tool call chatcmpl-tool-aa939354dcd8c92f] function get_cell_info(pci=608)
+2026-07-08 23:17:21,249 - root - INFO - [95m[Executing tool call chatcmpl-tool-aa939354dcd8c92f] function get_cell_info(pci=608)[0m
+2026-07-08 23:17:21,255 - root - INFO - [Tools API] GET /cell-info params={'pci': 608}
+2026-07-08 23:17:21,255 - root - INFO - [95m[Tool result] {"gNodeB ID": 3247813, "Cell ID": 1, "Longitude": 121.4715634552, "Latitude": 31.1461574452, "Mechanical Azimuth": 321, "Mechanical Downtilt": 6, "Digital Tilt": 6, "Height": 18.2, "Duplex Mode": "TDD", "PCI": 608, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 16, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 6, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3239893_504990_841,3230193_504990_693,3232154_504990_631]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:17:21,256 - root - INFO - 
+[Scenario: be9c0764-b59e-4020-914c-b0baec18dd8b] Investigator forcing structured evidence report:
+2026-07-08 23:17:30,988 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:31,386 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:31,387 - root - INFO - [31;1m[Agent response] \boxed{C17}[0m
+
+2026-07-08 23:17:31,387 - root - INFO - [95m
+[Scenario: be9c0764-b59e-4020-914c-b0baec18dd8b] Agent's answer is C17, ground truth is C13[0m.
+2026-07-08 23:17:31,387 - root - INFO - [Scenario 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] attempt 1/1
+2026-07-08 23:17:31,388 - root - INFO - [Tools API] GET /tools params={}
+2026-07-08 23:17:31,389 - root - INFO - 
+[Scenario: 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] Investigator round 1, calling tools:
+2026-07-08 23:17:32,001 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:32,001 - root - INFO - [Request tool call chatcmpl-tool-8d9c263c9d4e2dd2] function get_throughput_logs()
+2026-07-08 23:17:32,001 - root - INFO - [95m[Executing tool call chatcmpl-tool-8d9c263c9d4e2dd2] function get_throughput_logs()[0m
+2026-07-08 23:17:32,004 - root - INFO - [Tools API] GET /throughput-logs params={}
+2026-07-08 23:17:32,004 - root - INFO - [95m[Tool result] {"Logs": "Timestamp|5G KPI PCell Layer2 MAC DL Throughput [Mbps]\n2024-09-20 22:21:31.858|461.28\n2024-09-20 22:21:32.902|580.72\n2024-09-20 22:21:33.460|349.78\n2024-09-20 22:21:34.112|90.87\n2024-09-20 22:21:35.520|76.11\n2024-09-20 22:21:36.234|68.48\n2024-09-20 22:21:37.368|89.53\n2024-09-20 22:21:38.842|47.15\n2024-09-20 22:21:39.235|62.27\n2024-09-20 22:21:40.387|388.87\n2024-09-20 22:21:41.235|441.5\n2024-09-20 22:21:42.232|334.21\n"} [0m
+2026-07-08 23:17:32,004 - root - INFO - 
+[Scenario: 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] Investigator round 2, calling tools:
+2026-07-08 23:17:32,922 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:32,923 - root - INFO - [Request tool call chatcmpl-tool-81c6b33b77a07294] function get_serving_cell_pci(time=2024-09-20 22:21:34.219)
+2026-07-08 23:17:32,923 - root - INFO - [95m[Executing tool call chatcmpl-tool-81c6b33b77a07294] function get_serving_cell_pci(time=2024-09-20 22:21:34.219)[0m
+2026-07-08 23:17:32,926 - root - INFO - [Tools API] GET /serving-cell-pci params={'time': '2024-09-20 22:21:34.219'} -> HTTPError: No serving cell PCI found for time 2024-09-20 22:21:34.219
+2026-07-08 23:17:32,926 - root - INFO - [95m[Tool result] {"error": "No serving cell PCI found for time 2024-09-20 22:21:34.219"} [0m
+2026-07-08 23:17:32,927 - root - INFO - 
+[Scenario: 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] Investigator round 3, calling tools:
+2026-07-08 23:17:34,217 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:34,217 - root - INFO - [Request tool call chatcmpl-tool-9ea8886fdb187a4a] function get_serving_cell_pci(time=2024-09-20 22:21:34.112)
+2026-07-08 23:17:34,217 - root - INFO - [95m[Executing tool call chatcmpl-tool-9ea8886fdb187a4a] function get_serving_cell_pci(time=2024-09-20 22:21:34.112)[0m
+2026-07-08 23:17:34,222 - root - INFO - [Tools API] GET /serving-cell-pci params={'time': '2024-09-20 22:21:34.112'}
+2026-07-08 23:17:34,222 - root - INFO - [95m[Tool result] {"PCI": 197} [0m
+2026-07-08 23:17:34,222 - root - INFO - 
+[Scenario: 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] Investigator round 4, calling tools:
+2026-07-08 23:17:34,766 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:34,766 - root - INFO - [Request tool call chatcmpl-tool-8befe339680ea287] function get_cell_info(pci=197)
+2026-07-08 23:17:34,766 - root - INFO - [95m[Executing tool call chatcmpl-tool-8befe339680ea287] function get_cell_info(pci=197)[0m
+2026-07-08 23:17:34,769 - root - INFO - [Tools API] GET /cell-info params={'pci': 197}
+2026-07-08 23:17:34,769 - root - INFO - [95m[Tool result] {"gNodeB ID": 3225098, "Cell ID": 1, "Longitude": 121.4749398815, "Latitude": 31.1469343293, "Mechanical Azimuth": 184, "Mechanical Downtilt": 4, "Digital Tilt": 5, "Height": 30.8, "Duplex Mode": "TDD", "PCI": 197, "Band": "n41", "DL ARFCN": 504990, "BW [MHz]": "100M", "TxRx Mode": "64T64R", "Transmission Power": 12, "ARFCN": 504990, "InterFreqHoEventType": "EVENT_A5", "CovInterFreqA2RsrpThld [dBm]": -105, "InterFreqA2Hyst [0.5dB]": 2, "CovInterFreqA5RsrpThld1 [dBm]": -105, "CovInterFreqA5RsrpThld2 [dBm]": -100, "IntraFreqHoA3Offset [0.5dB]": 6, "IntraFreqHoA3Hyst [0.5dB]": 2, "IntraFreqHoA3TimeToTrig": "ms320", "PCell Neighbor Cell (gNodeBID_ARFCN_PCI)": "[3213779_504990_795,3271925_504990_740,3257710_504990_317]", "PdcchOccupiedSymbolNum": "1SYM", "Digital Azimuth": 0, "Max Transmit Power": 32, "notes": ""} [0m
+2026-07-08 23:17:34,769 - root - INFO - 
+[Scenario: 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] Investigator round 5, calling tools:
+2026-07-08 23:17:37,326 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:37,326 - root - INFO - [Request tool call chatcmpl-tool-93dfe8820c2c1e49] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.112)
+2026-07-08 23:17:37,327 - root - INFO - [95m[Executing tool call chatcmpl-tool-93dfe8820c2c1e49] function get_serving_cell_rsrp(time=2024-09-20 22:21:34.112)[0m
+2026-07-08 23:17:37,332 - root - INFO - [Tools API] GET /serving-cell-rsrp params={'time': '2024-09-20 22:21:34.112'}
+2026-07-08 23:17:37,332 - root - INFO - [95m[Tool result] {"SS-RSRP (dBm)": -90.66} [0m
+2026-07-08 23:17:37,332 - root - INFO - 
+[Scenario: 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] Investigator round 6, calling tools:
+2026-07-08 23:17:38,520 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:38,521 - root - INFO - [Request tool call chatcmpl-tool-ab81d48daecd0b37] function get_serving_cell_sinr(time=2024-09-20 22:21:34.112)
+2026-07-08 23:17:38,521 - root - INFO - [95m[Executing tool call chatcmpl-tool-ab81d48daecd0b37] function get_serving_cell_sinr(time=2024-09-20 22:21:34.112)[0m
+2026-07-08 23:17:38,525 - root - INFO - [Tools API] GET /serving-cell-sinr params={'time': '2024-09-20 22:21:34.112'}
+2026-07-08 23:17:38,525 - root - INFO - [95m[Tool result] {"SS-SINR (dB)": 13.37} [0m
+2026-07-08 23:17:38,525 - root - INFO - 
+[Scenario: 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] Investigator round 7, calling tools:
+2026-07-08 23:17:39,516 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:39,519 - root - INFO - [Request tool call chatcmpl-tool-8972680c25bf264d] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.112)
+2026-07-08 23:17:39,519 - root - INFO - [95m[Executing tool call chatcmpl-tool-8972680c25bf264d] function get_neighboring_cells_pci(time=2024-09-20 22:21:34.112)[0m
+2026-07-08 23:17:39,522 - root - INFO - [Tools API] GET /neighboring-cells-pci params={'time': '2024-09-20 22:21:34.112'}
+2026-07-08 23:17:39,523 - root - INFO - [95m[Tool result] {"PCIs": [740, 317, 795]} [0m
+2026-07-08 23:17:39,523 - root - INFO - 
+[Scenario: 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] Investigator round 8, calling tools:
+2026-07-08 23:17:40,449 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:40,450 - root - INFO - [Request tool call chatcmpl-tool-b7ebb2926bd4f75c] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.112, pci=740)
+2026-07-08 23:17:40,450 - root - INFO - [95m[Executing tool call chatcmpl-tool-b7ebb2926bd4f75c] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.112, pci=740)[0m
+2026-07-08 23:17:40,455 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.112', 'pci': 740}
+2026-07-08 23:17:40,455 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -92.0} [0m
+2026-07-08 23:17:40,455 - root - INFO - 
+[Scenario: 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] Investigator round 9, calling tools:
+2026-07-08 23:17:41,936 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:41,936 - root - INFO - [Request tool call chatcmpl-tool-94738ec84d55fbdf] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.112, pci=317)
+2026-07-08 23:17:41,936 - root - INFO - [95m[Executing tool call chatcmpl-tool-94738ec84d55fbdf] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.112, pci=317)[0m
+2026-07-08 23:17:41,941 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.112', 'pci': 317}
+2026-07-08 23:17:41,941 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -100.0} [0m
+2026-07-08 23:17:41,941 - root - INFO - 
+[Scenario: 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] Investigator round 10, calling tools:
+2026-07-08 23:17:43,015 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:43,016 - root - INFO - [Request tool call chatcmpl-tool-b6ff0a61de97e8b9] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.112, pci=795)
+2026-07-08 23:17:43,016 - root - INFO - [95m[Executing tool call chatcmpl-tool-b6ff0a61de97e8b9] function get_neighboring_cell_rsrp(time=2024-09-20 22:21:34.112, pci=795)[0m
+2026-07-08 23:17:43,022 - root - INFO - [Tools API] GET /neighboring-cell-rsrp params={'time': '2024-09-20 22:21:34.112', 'pci': 795}
+2026-07-08 23:17:43,022 - root - INFO - [95m[Tool result] {"Filtered Tx BRSRP [dBm]": -104.0} [0m
+2026-07-08 23:17:43,022 - root - INFO - 
+[Scenario: 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] Investigator forcing structured evidence report:
+2026-07-08 23:17:52,276 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:52,617 - httpx - INFO - HTTP Request: POST https://api.tokenfactory.nebius.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-07-08 23:17:52,618 - root - INFO - [31;1m[Agent response] \boxed{C10}[0m
+
+2026-07-08 23:17:52,619 - root - INFO - [95m
+[Scenario: 8fbe9492-d54a-4507-adb1-2a2bdd5ae757] Agent's answer is C10, ground truth is C16[0m.

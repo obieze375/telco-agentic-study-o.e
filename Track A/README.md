@@ -20,6 +20,8 @@ For more details on Track A - Phase 1, see [`data/Phase_1/README.md`](data/Phase
 
 For local environment setup, API key configuration, and `main.py` changes, see [`LOCAL_SETUP.md`](LOCAL_SETUP.md)
 
+For Docker, see [`DOCKER.md`](DOCKER.md)
+
 For more details on Track A - Phase 2, see [`data/Phase_2/README.md`](data/Phase_2/README.md)
 
 ---

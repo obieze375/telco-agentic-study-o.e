@@ -5,3 +5,5 @@ pandas
 datasets
 flask
 gunicorn
+httpx
+requests

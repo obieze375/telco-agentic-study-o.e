@@ -18,6 +18,8 @@ The challenge will leverage a dedicated, multi-vendor Agent Sandbox capable of m
 
 For more details on Track A - Phase 1, see [`data/Phase_1/README.md`](data/Phase_1/README.md)
 
+For local environment setup, API key configuration, and `main.py` changes, see [`LOCAL_SETUP.md`](LOCAL_SETUP.md)
+
 For more details on Track A - Phase 2, see [`data/Phase_2/README.md`](data/Phase_2/README.md)
 
 ---

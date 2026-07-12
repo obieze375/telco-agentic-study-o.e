@@ -24,8 +24,18 @@ from utils import (
     compute_score,
 )
 
-os.environ['AGENT_API_KEY'] = 'sk-XXXXXXXXXXXXX'
-API_KEY = os.environ.get("AGENT_API_KEY", "dummy")
+def resolve_api_key(cli_key: Optional[str] = None) -> str:
+    """
+    Resolve the LLM API key without hardcoding secrets in source.
+
+    Priority (highest first):
+      1. --api_key CLI flag
+      2. NEBIUS_API_KEY env var (Nebius Token Factory)
+      3. AGENT_API_KEY env var (OpenRouter or other providers)
+    """
+    if cli_key:
+        return cli_key
+    return os.environ.get("NEBIUS_API_KEY") or os.environ.get("AGENT_API_KEY") or "dummy"
 
 
 # ------------------------------------------------------------------------------
@@ -176,6 +186,7 @@ class AgentsRunner:
             environment: Environment,
             model_url: str,
             model_name: str,
+            api_key: str,
             model_provider: Optional[str] = None,
             max_tokens: int = 16000,
             max_retries: int = 3,
@@ -196,7 +207,7 @@ class AgentsRunner:
 
         self.client = OpenAI(
             base_url=model_url,
-            api_key=API_KEY,
+            api_key=api_key,
             http_client=httpx.Client(verify=False),
         )
 
@@ -470,6 +481,12 @@ if __name__ == "__main__":
     parser.add_argument("--server_url", type=str,  default="https://120.46.145.77/no")
     parser.add_argument("--model_url", type=str, default="https://openrouter.ai/api/v1")
     parser.add_argument("--model_name", type=str, default="qwen/qwen3.5-35b-a3b")
+    parser.add_argument(
+        "--api_key",
+        type=str,
+        default=None,
+        help="LLM API key (overrides NEBIUS_API_KEY and AGENT_API_KEY env vars)",
+    )
     parser.add_argument("--model_provider", type=str, default=None)
     parser.add_argument("--num_attempts", type=int, default=1)
     parser.add_argument("--max_samples", type=int, default=500)
@@ -486,10 +503,13 @@ if __name__ == "__main__":
 
     Environment = Environment(server_url=args.server_url, verbose=args.verbose, logger=logger)
 
+    api_key = resolve_api_key(args.api_key)
+
     runner = AgentsRunner(
         environment=Environment,
         model_url=args.model_url,
         model_name=args.model_name,
+        api_key=api_key,
         model_provider=args.model_provider,
         max_tokens=args.max_tokens,
         max_iterations=args.max_iterations,

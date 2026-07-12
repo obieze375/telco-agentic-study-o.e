@@ -3,3 +3,6 @@ openai
 pydantic
 pandas
 datasets
+uvicorn
+httpx
+requests

@@ -2,6 +2,8 @@
 
 ## 1. Participant Guide
 
+For local setup (virtualenv, API keys, Nebius Token Factory, and `main.py` changes), see [`LOCAL_SETUP.md`](LOCAL_SETUP.md).
+
 Participants may deploy the Agent Tool Server locally:
 
 ```

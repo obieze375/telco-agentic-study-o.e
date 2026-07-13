@@ -7,8 +7,8 @@
 # Quick start:
 #   cp .env.example .env   # set NEBIUS_API_KEY
 #   docker compose up --build server
-#   docker compose --profile run up --build
-#   docker compose --profile monitoring up --build
+#   docker compose --profile run up --build   # server + agent + monitoring
+#   docker compose --profile monitoring up --build   # monitoring only (no agent)
 
 services:
   server:
@@ -61,7 +61,7 @@ services:
       dockerfile: Dockerfile.exporter
     image: track-a-exporter:dev
     container_name: track-a-metrics-exporter
-    profiles: ["monitoring"]
+    profiles: ["run", "monitoring"]
     environment:
       RESULTS_DIR: /app/results
       EXPORTER_PORT: 9100
@@ -75,7 +75,7 @@ services:
   prometheus:
     image: prom/prometheus:v2.54.1
     container_name: track-a-prometheus
-    profiles: ["monitoring"]
+    profiles: ["run", "monitoring"]
     command:
       - --config.file=/etc/prometheus/prometheus.yml
       - --storage.tsdb.path=/prometheus
@@ -92,7 +92,7 @@ services:
   grafana:
     image: grafana/grafana:11.2.0
     container_name: track-a-grafana
-    profiles: ["monitoring"]
+    profiles: ["run", "monitoring"]
     environment:
       GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}

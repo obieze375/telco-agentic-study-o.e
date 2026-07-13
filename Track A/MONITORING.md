@@ -6,12 +6,18 @@ Experiment metrics are exported from every `results.json` under `Track A/results
 
 ```bash
 cd "Track A"
+cp .env.example .env   # set NEBIUS_API_KEY
 
-# Monitoring only (reads committed results on disk)
+# Normal run — server + agent + monitoring (Grafana ready from the start)
+docker compose --profile run up --build -d
+```
+
+Open **http://localhost:3000** while the agent runs; metrics refresh as `results.json` is written.
+
+### Monitoring only (view existing results, no agent)
+
+```bash
 docker compose --profile monitoring up --build -d
-
-# Server + agent + monitoring together
-docker compose --profile run --profile monitoring up --build -d
 ```
 
 Open in your browser:
@@ -41,7 +47,7 @@ flowchart TB
             AGENT["agent (profile: run)<br/>main.py loop"]
         end
 
-        subgraph monitoring["Monitoring (profile: monitoring)"]
+        subgraph monitoring["Monitoring (starts with --profile run)"]
             EXP["metrics-exporter :9100<br/>metrics_exporter.py"]
             PROM["prometheus :9090"]
             GRAF["grafana :3000"]

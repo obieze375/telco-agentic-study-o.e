@@ -2,7 +2,7 @@
 
 This guide assumes you are running Track A from the local project checkout and using your Nebius API key from `Track A/.env`.
 
-**Docker (recommended for reproducible runs):** see [`DOCKER.md`](DOCKER.md).
+**Docker (recommended for reproducible runs):** see [`DOCKER.md`](DOCKER.md) and [`DOCKER_ARCH.md`](DOCKER_ARCH.md).
 
 ## 1. Start the local tools server
 

@@ -2,5 +2,10 @@ fastapi
 openai
 pydantic
 pandas
+numpy
+python-dateutil
 datasets
 python-dotenv
+uvicorn
+httpx
+requests

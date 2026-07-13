@@ -174,6 +174,7 @@ docker run --rm \
 
 ## See also
 
+- [`DOCKER_ARCH.md`](DOCKER_ARCH.md) — full dockerized architecture, run steps, troubleshooting
 - [`MONITORING.md`](MONITORING.md) — Prometheus + Grafana for `results/*/results.json`
 - [`RUN_TRACK_A.md`](RUN_TRACK_A.md) — non-Docker Nebius workflow on `dev`
 - [`README.md`](README.md) — competition overview

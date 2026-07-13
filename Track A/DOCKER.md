@@ -166,5 +166,6 @@ docker run --rm \
 
 ## See also
 
+- [`MONITORING.md`](MONITORING.md) — Prometheus + Grafana for `results/*/results.json`
 - [`RUN_TRACK_A.md`](RUN_TRACK_A.md) — non-Docker Nebius workflow on `dev`
 - [`README.md`](README.md) — competition overview

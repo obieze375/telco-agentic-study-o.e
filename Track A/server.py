@@ -985,4 +985,5 @@ def get_available_tools():
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("server:app", host=FASTAPI_HOST, port=FASTAPI_PORT, reload=True)
+    reload = _env_bool("UVICORN_RELOAD", default=True)
+    uvicorn.run("server:app", host=FASTAPI_HOST, port=FASTAPI_PORT, reload=reload)

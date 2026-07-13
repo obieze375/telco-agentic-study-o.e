@@ -1,0 +1,55 @@
+# Track A — Docker Compose
+#
+# Use BOTH files together:
+#   Dockerfile     → builds one image (Python code + dependencies)
+#   docker-compose → runs services (server + agent), env, ports, volumes
+#
+# Quick start:
+#   cp .env.example .env   # set NEBIUS_API_KEY
+#   docker compose up --build server
+#   docker compose --profile run up --build
+
+services:
+  server:
+    build: .
+    image: track-a:dev
+    container_name: track-a-server
+    command: ["server"]
+    ports:
+      - "${TRACK_A_PORT:-7860}:7860"
+    environment:
+      FASTAPI_HOST: 0.0.0.0
+      FASTAPI_PORT: 7860
+      UVICORN_RELOAD: "false"
+      DATA_SOURCE: ${DATA_SOURCE:-data/Phase_1}
+      DATA_SPLIT: ${DATA_SPLIT:-train}
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:7860/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 25s
+    restart: unless-stopped
+
+  agent:
+    build: .
+    image: track-a:dev
+    container_name: track-a-agent
+    profiles: ["run"]
+    depends_on:
+      server:
+        condition: service_healthy
+    command: ["agent"]
+    environment:
+      NEBIUS_API_KEY: ${NEBIUS_API_KEY:?Set NEBIUS_API_KEY in .env}
+      SERVER_URL: http://server:7860
+      MODEL_URL: ${MODEL_URL:-https://api.tokenfactory.nebius.com/v1}
+      MODEL_NAME: ${MODEL_NAME:-Qwen/Qwen3-30B-A3B-Instruct-2507}
+      ARCHITECTURE: ${ARCHITECTURE:-investigator_decision}
+      MAX_SAMPLES: ${MAX_SAMPLES:-10}
+      MAX_ITERATIONS: ${MAX_ITERATIONS:-15}
+      SAVE_DIR: ${SAVE_DIR:-/app/results/docker-run}
+      LOG_FILE: ${LOG_FILE:-/app/results/docker-run.log}
+    volumes:
+      - ./results:/app/results
+    restart: "no"

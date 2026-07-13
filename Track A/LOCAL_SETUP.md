@@ -2,6 +2,12 @@
 
 This document describes how to run Track A locally, including changes made to `main.py` for API authentication and LLM provider configuration.
 
+## Docker (alternative)
+
+To run Track A in containers without a local venv, see [`DOCKER.md`](DOCKER.md).
+
+---
+
 ## 1. Python environment (Kali / Debian)
 
 System Python on Kali is externally managed (PEP 668). Use a virtual environment:

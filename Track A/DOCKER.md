@@ -62,11 +62,19 @@ docker compose up --build server
 curl http://localhost:7860/health
 ```
 
-### Option B — Full pipeline (server + agent)
+### Option B — Full pipeline (server + agent + monitoring)
 
 ```bash
 docker compose --profile run up --build
 ```
+
+This starts the sandbox server, agent, **and** Prometheus/Grafana — no extra profiles needed.
+
+| What | URL |
+|------|-----|
+| Grafana dashboard | http://localhost:3000 |
+| Sandbox API | http://localhost:7860 |
+| Prometheus | http://localhost:9090 |
 
 Results on the host:
 
@@ -166,5 +174,6 @@ docker run --rm \
 
 ## See also
 
+- [`MONITORING.md`](MONITORING.md) — Prometheus + Grafana for `results/*/results.json`
 - [`RUN_TRACK_A.md`](RUN_TRACK_A.md) — non-Docker Nebius workflow on `dev`
 - [`README.md`](README.md) — competition overview

@@ -7,7 +7,8 @@
 # Quick start:
 #   cp .env.example .env   # set NEBIUS_API_KEY
 #   docker compose up --build server
-#   docker compose --profile run up --build
+#   docker compose --profile run up --build   # server + agent + monitoring
+#   docker compose --profile monitoring up --build   # monitoring only (no agent)
 
 services:
   server:
@@ -53,3 +54,60 @@ services:
     volumes:
       - ./results:/app/results
     restart: "no"
+
+  metrics-exporter:
+    build:
+      context: ./monitoring
+      dockerfile: Dockerfile.exporter
+    image: track-a-exporter:dev
+    container_name: track-a-metrics-exporter
+    profiles: ["run", "monitoring"]
+    environment:
+      RESULTS_DIR: /app/results
+      EXPORTER_PORT: 9100
+      SCRAPE_LOGS: ${SCRAPE_LOGS:-true}
+    volumes:
+      - ./results:/app/results:ro
+    ports:
+      - "${EXPORTER_PORT:-9100}:9100"
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    container_name: track-a-prometheus
+    profiles: ["run", "monitoring"]
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.enable-lifecycle
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    ports:
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    depends_on:
+      - metrics-exporter
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.2.0
+    container_name: track-a-grafana
+    profiles: ["run", "monitoring"]
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+volumes:
+  prometheus-data:
+  grafana-data:

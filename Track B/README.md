@@ -90,9 +90,11 @@ If server access issues occur, participants may deploy the Agent Tool Server loc
 
 1. First, unzip `devices_outputs.zip` inside the same directory
 2. Then, run `python server.py` to deploy the local server.
-3. An example agent workflow is provide in `agent/` folder.
+3. Run the standalone agent with `python main.py` (no OpenClaw required), or use the optional OpenClaw workflow in `agent/`.
 
-After local deployment, change the Agent's target URL to `http://localhost:7860/api/agent/execute`; no Token required.
+After local deployment, point the agent at `http://localhost:7860`; no token required.
+
+For step-by-step local setup (venv, API keys, Token Factory, troubleshooting), see [`LOCAL_SETUP.md`](LOCAL_SETUP.md).
 
 ---
 

@@ -532,6 +532,8 @@ display ip pool
 - Agent calls the remote Agent Tool Server via HTTP
 - No need to deploy the server locally (but a fallback option is provided)
 
+**Quick start (no OpenClaw):** see [`../../LOCAL_SETUP.md`](../../LOCAL_SETUP.md) and run `python main.py`.
+
 ### API Call Rules
 
 1. **Sequential Calls:** When solving a single problem, the Agent must call tools sequentially; no concurrent calls within a problem
